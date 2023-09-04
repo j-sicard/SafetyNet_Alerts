@@ -14,7 +14,6 @@ public class CommunityEmail {
         this.email = email;
     }
 
-
     @Override
     public String toString() {
         return "CommunityEmail{" +
