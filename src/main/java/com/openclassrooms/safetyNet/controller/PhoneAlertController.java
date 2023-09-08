@@ -1,29 +1,25 @@
 package com.openclassrooms.safetyNet.controller;
 
+import com.openclassrooms.safetyNet.service.PhoneAlertService;
 
-import com.openclassrooms.safetyNet.dao.phoneAlertDao.PhoneAlertDAO;
-import com.openclassrooms.safetyNet.model.PhoneAlert;
-import com.openclassrooms.safetyNet.view.LinkUrl;
-
+import org.codehaus.jackson.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 public class PhoneAlertController{
+ @Autowired
+ PhoneAlertService phoneAlertService;
 
-    private final PhoneAlertDAO phoneAlertDAO;
+    @GetMapping(value = "/phoneAlert")
+    public List<String> getPhoneNumberResidentServedByFirestation(@RequestParam String firestation) throws ClassNotFoundException, JsonProcessingException, IOException {
 
-    public PhoneAlertController(PhoneAlertDAO phoneAlertDAO) {
-        this.phoneAlertDAO = phoneAlertDAO;
-    }
-
-    @GetMapping(LinkUrl.URL_FOR_PHONE_NUMBERS_OF_RESIDENTS_SERVED_BY_THE_FIRE_STATION)
-    public List<PhoneAlert> addressOfSation(@RequestParam(required = true) String station_number) {
-
-        return phoneAlertDAO.findByFireSationNumber(station_number);
+        return phoneAlertService.getPhoneNumberResidentServedByFirestation(firestation);
     }
 }
 
