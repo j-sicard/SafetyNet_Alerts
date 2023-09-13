@@ -12,9 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class FireStationDaoTest {
     private FireStationDao fireStationDao = new FireStationDaoImpl("src/test/resources/data.json");
-
     @Test
-    void testListPerson() throws ClassNotFoundException, JsonProcessingException, IOException {
+    void testListFireStation() throws ClassNotFoundException, JsonProcessingException, IOException {
         assertTrue(!CollectionUtils.isEmpty(fireStationDao.list()));
     }
 }

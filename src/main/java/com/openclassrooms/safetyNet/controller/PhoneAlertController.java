@@ -1,6 +1,7 @@
 package com.openclassrooms.safetyNet.controller;
 
-import com.openclassrooms.safetyNet.service.PhoneAlertService;
+import java.io.IOException;
+import java.util.List;
 
 import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.List;
+import com.openclassrooms.safetyNet.service.PersonService;
+import com.openclassrooms.safetyNet.service.StationService;
 
 @RestController
-public class PhoneAlertController{
- @Autowired
- PhoneAlertService phoneAlertService;
+public class PhoneAlertController {
+	@Autowired
+	PersonService personService;
 
-    @GetMapping(value = "/phoneAlert")
-    public List<String> getPhoneNumberResidentServedByFirestation(@RequestParam String firestation) throws ClassNotFoundException, JsonProcessingException, IOException {
+	@Autowired
+	StationService stationService;
 
-        return phoneAlertService.getPhoneNumberResidentServedByFirestation(firestation);
-    }
+	@GetMapping(value = "/phoneAlert")
+	public List<String> getResidentPhoneNumbersByStation(@RequestParam String firestation)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+
+		return personService.getPersonPhoneNumberFromAddresses(stationService.listStationAddresses(firestation));
+	}
 }
-

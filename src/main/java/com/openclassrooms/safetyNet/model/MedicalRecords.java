@@ -19,6 +19,8 @@ public class MedicalRecords {
         this.allergies = allergies;
     }
 
+    public MedicalRecords(){}
+
     public String getFirstName() {
         return firstName;
     }
