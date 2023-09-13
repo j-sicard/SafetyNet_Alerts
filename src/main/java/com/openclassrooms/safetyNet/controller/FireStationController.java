@@ -1,10 +1,10 @@
 package com.openclassrooms.safetyNet.controller;
 
-
+import com.openclassrooms.safetyNet.dto.model.ResidentInfoModel;
 import com.openclassrooms.safetyNet.service.MedicalRecordsService;
-import com.openclassrooms.safetyNet.service.PersonService;
+import com.openclassrooms.safetyNet.service.ResidentInfoService;
 import com.openclassrooms.safetyNet.service.StationService;
-import com.openclassrooms.safetyNet.utils.DateConverter;
+import com.openclassrooms.safetyNet.utils.AgesAdministrator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,26 +12,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.time.LocalDate;
+
+import java.util.HashMap;
 import java.util.List;
 
-import static com.openclassrooms.safetyNet.utils.DateConverter.calculateAge;
-import static com.openclassrooms.safetyNet.utils.DateConverter.convertStringListToDateList;
+import static com.openclassrooms.safetyNet.utils.AgesAdministrator.adultChildrenCount;
+import com.openclassrooms.safetyNet.dto.model.ResidentAndAgeInfo;
 
 @RestController
 public class FireStationController {
 
-    @Autowired
-    StationService stationService;
+        @Autowired
+        MedicalRecordsService medicalRecordsService;
 
-    @Autowired
-    PersonService personService;
+        @Autowired
+        ResidentInfoService residentInfoService;
 
-    @Autowired
-    MedicalRecordsService medicalRecordsService;
+        @Autowired
+        StationService stationService;
 
-    @GetMapping("/firestation")
-    public List<String> getResidentInformationsByStation(@RequestParam String stationNumber) throws ClassNotFoundException, JsonProcessingException, IOException {
-        return personService.getPersonInfoFromAdresses(stationService.listStationAddresses(stationNumber));
-    }
+        @GetMapping(value = "/firestation")
+        public ResidentAndAgeInfo test(@RequestParam String stationNumber)
+                throws ClassNotFoundException, JsonProcessingException, IOException {
+
+                List<String> dateStrings = medicalRecordsService.getPersonBirthDates(residentInfoService.getResidentByAdresses(stationService.listStationAddresses(stationNumber)));
+                List<Integer> ages = AgesAdministrator.calculatetAges(dateStrings);
+                HashMap<String, Integer> ageInfo = adultChildrenCount(ages);
+                List<ResidentInfoModel> residents = residentInfoService.getResidentByAdresses(stationService.listStationAddresses(stationNumber));
+
+                return new ResidentAndAgeInfo(residents, ageInfo);
+        }
 }
+
+

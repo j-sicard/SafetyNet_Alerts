@@ -7,7 +7,5 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ResidentInfoService {
-    List<ResidentInfoModel> getResidentByAdresses(String stationAdresses)throws ClassNotFoundException, JsonProcessingException, IOException;
-
-    /*List<String> getBirthDatesbyFirstname(List<ResidentInfoModel> ResidentInfo)throws ClassNotFoundException, JsonProcessingException, IOException;*/
+    List<ResidentInfoModel> getResidentByAdresses(List<String> stationAddresses)throws ClassNotFoundException, JsonProcessingException, IOException;
 }

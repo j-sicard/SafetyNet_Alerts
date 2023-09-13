@@ -24,24 +24,14 @@ public class ResidentInfoServiceImpl implements ResidentInfoService {
     private ResidentInfoDao residentInfoDao = new ResidentInfoDaoImpl();
 
     @Override
-    public List<ResidentInfoModel> getResidentByAdresses(String stationAdresses) throws ClassNotFoundException, IOException, JsonProcessingException{
+    public List<ResidentInfoModel> getResidentByAdresses(List<String> stationAddresses) throws ClassNotFoundException, IOException, JsonProcessingException{
         List<ResidentInfoModel> residentByAdresses = new ArrayList<>();
 
         for (ResidentInfoModel infoResident : residentInfoDao.list()) {
-            if (stationAdresses.contains(infoResident.getAddress())) {
+            if (stationAddresses.contains(infoResident.getAddress())) {
                 residentByAdresses.add(infoResident);
             }
         }
         return residentByAdresses;
     }
-
-  /*  List<String> getBirthDatesbyFirstname(List<ResidentInfoModel> ResidentInfo)throws ClassNotFoundException, IOException{
-        List<String>BirthDates = new ArrayList<>();
-        for (MedicalRecordsDao medicalRecords : medicalRecordsDao ){
-            if (       .contains(medicalRecords.g))
-
-        }
-
-    }*/
-
 }
