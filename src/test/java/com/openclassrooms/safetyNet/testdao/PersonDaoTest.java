@@ -1,8 +1,8 @@
-package com.openclassrooms.safetyNet;
+package com.openclassrooms.safetyNet.testdao;
 
 import org.codehaus.jackson.JsonProcessingException;
 import com.openclassrooms.safetyNet.dao.PersonDao;
-import com.openclassrooms.safetyNet.dao.PersonDaoImpl;
+import com.openclassrooms.safetyNet.dao.impl.PersonDaoImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;
 

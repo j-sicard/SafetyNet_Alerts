@@ -1,46 +1,44 @@
 package com.openclassrooms.safetyNet.controller;
 
-import com.openclassrooms.safetyNet.dto.model.ResidentInfoModel;
-import com.openclassrooms.safetyNet.service.MedicalRecordsService;
-import com.openclassrooms.safetyNet.service.ResidentInfoService;
-import com.openclassrooms.safetyNet.service.StationService;
-import com.openclassrooms.safetyNet.utils.AgesAdministrator;
+import java.io.IOException;
+import java.util.List;
+
 import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static com.openclassrooms.safetyNet.utils.AgesAdministrator.adultChildrenCount;
-import com.openclassrooms.safetyNet.dto.model.ResidentAndAgeInfo;
+import com.openclassrooms.safetyNet.dto.ResidentAndAgesDTO;
+import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
+import com.openclassrooms.safetyNet.service.MedicalRecordService;
+import com.openclassrooms.safetyNet.service.PersonService;
+import com.openclassrooms.safetyNet.service.StationService;
+import com.openclassrooms.safetyNet.utils.DateUtils;
 
 @RestController
 public class FireStationController {
 
         @Autowired
-        MedicalRecordsService medicalRecordsService;
-
-        @Autowired
-        ResidentInfoService residentInfoService;
+        MedicalRecordService medicalRecordsService;
 
         @Autowired
         StationService stationService;
 
+        @Autowired
+        PersonService personService;
+
         @GetMapping(value = "/firestation")
-        public ResidentAndAgeInfo test(@RequestParam String stationNumber)
+        public ResidentAndAgesDTO getResidentsWithNumberOfAdultsAndChildrenByStation(@RequestParam String stationNumber)
                 throws ClassNotFoundException, JsonProcessingException, IOException {
 
-                List<String> dateStrings = medicalRecordsService.getPersonBirthDates(residentInfoService.getResidentByAdresses(stationService.listStationAddresses(stationNumber)));
-                List<Integer> ages = AgesAdministrator.calculatetAges(dateStrings);
-                HashMap<String, Integer> ageInfo = adultChildrenCount(ages);
-                List<ResidentInfoModel> residents = residentInfoService.getResidentByAdresses(stationService.listStationAddresses(stationNumber));
+                List<String> personBirthDates = medicalRecordsService.getPersonBirthDates(personService.getByAdresses(stationService.listStationAddresses(stationNumber)));
+                List<Integer> ages = DateUtils.getAges(personBirthDates);
+                int nbAdult = personService.getNbAdult(ages);
+                int nbChildren = personService.getNbChildren(ages);
+                List<ResidentInfoDTO> residents = personService.getByAdresses(stationService.listStationAddresses(stationNumber));
 
-                return new ResidentAndAgeInfo(residents, ageInfo);
+                return new ResidentAndAgesDTO(residents, nbAdult, nbChildren);
         }
 }
 

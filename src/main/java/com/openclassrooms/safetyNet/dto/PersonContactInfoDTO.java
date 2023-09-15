@@ -1,6 +1,14 @@
-package com.openclassrooms.safetyNet.dto.model;
+package com.openclassrooms.safetyNet.dto;
 
-public class ResidentInfoModel {
+import java.io.Serializable;
+
+public class PersonContactInfoDTO implements Serializable {
+
+    /**
+     * UUID
+     */
+    private static final long serialVersionUID = -4815539740390384741L;
+
     private String firstName;
 
     private String lastName;
@@ -9,13 +17,16 @@ public class ResidentInfoModel {
 
     private String phone;
 
-        public ResidentInfoModel(String firstName, String lastName, String address, String phone) {
+    private String age;
+
+    public PersonContactInfoDTO(String firstName, String lastName, String address, String phone, String age) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+        this.age = age;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -47,6 +58,14 @@ public class ResidentInfoModel {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
 

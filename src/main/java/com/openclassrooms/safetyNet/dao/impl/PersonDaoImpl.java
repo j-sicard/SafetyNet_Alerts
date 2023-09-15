@@ -1,6 +1,7 @@
-package com.openclassrooms.safetyNet.dao;
+package com.openclassrooms.safetyNet.dao.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassrooms.safetyNet.dao.PersonDao;
 import com.openclassrooms.safetyNet.model.Person;
 import com.openclassrooms.safetyNet.utils.DataExtractor;
 

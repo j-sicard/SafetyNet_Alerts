@@ -1,7 +1,7 @@
-package com.openclassrooms.safetyNet;
+package com.openclassrooms.safetyNet.testdao;
 
 import com.openclassrooms.safetyNet.dao.FireStationDao;
-import com.openclassrooms.safetyNet.dao.FireStationDaoImpl;
+import com.openclassrooms.safetyNet.dao.impl.FireStationDaoImpl;
 import org.codehaus.jackson.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;

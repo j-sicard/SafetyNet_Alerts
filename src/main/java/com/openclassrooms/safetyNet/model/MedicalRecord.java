@@ -1,9 +1,8 @@
 package com.openclassrooms.safetyNet.model;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class MedicalRecords {
+public class MedicalRecord {
   private String firstName;
   private String lastName;
   private String birthdate;
@@ -11,7 +10,7 @@ public class MedicalRecords {
 
   private List< String>allergies;
 
-    public MedicalRecords(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
+    public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -19,7 +18,7 @@ public class MedicalRecords {
         this.allergies = allergies;
     }
 
-    public MedicalRecords(){}
+    public MedicalRecord(){}
 
     public String getFirstName() {
         return firstName;

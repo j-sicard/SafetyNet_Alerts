@@ -1,4 +1,4 @@
-package com.openclassrooms.safetyNet.dao;
+package com.openclassrooms.safetyNet.dao.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassrooms.safetyNet.dao.FireStationDao;
 import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.utils.DataExtractor;
 
