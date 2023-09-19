@@ -92,4 +92,16 @@ public class PersonMedicalRecordDTO implements Serializable {
         this.allergies = allergies;
     }
 
+    @Override
+    public String toString() {
+        return "PersonMedicalRecordDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", medications=" + medications +
+                ", allergies=" + allergies +
+                '}';
+    }
 }
