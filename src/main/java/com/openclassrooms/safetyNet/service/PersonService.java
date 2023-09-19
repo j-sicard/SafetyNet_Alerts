@@ -17,6 +17,8 @@ public interface PersonService {
 
 	public List<String> getPersonFirstNameFromAdresses(List<String> addresses)throws ClassNotFoundException,JsonProcessingException, IOException;
 
+	public List<Person> getPersonInfoFromAddress(String address)throws ClassNotFoundException, JsonProcessingException, IOException;
+
 	public List<ResidentInfoDTO> getByAdresses(List<String> adresses) throws ClassNotFoundException, IOException, JsonProcessingException;
 
 	public int getNbAdult(List<Integer> ages);

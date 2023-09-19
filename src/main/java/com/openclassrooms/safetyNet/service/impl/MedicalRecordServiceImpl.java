@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,19 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             for(MedicalRecord record : medicalRecordDao.list()) {
                 if(person.getFirstName().toUpperCase().equals(record.getFirstName().toUpperCase()) && person.getLastName().toUpperCase().equals(record.getLastName().toUpperCase())) {
                     personsMedicalRecords.add(new PersonMedicalRecordDTO(person.getFirstName(), person.getLastName(), person.getAddress(), DateUtils.getAge(record.getBirthdate()), person.getEmail(), record.getMedications(), record.getAllergies()));
+                }
+            }
+        }
+        return personsMedicalRecords;
+    }
+
+    @Override
+    public List<ResidentInfoMedicalRecordsDTO> getResidentMedicalRecords(List<Person> persons) throws ClassNotFoundException, JsonProcessingException, IOException {
+        List<ResidentInfoMedicalRecordsDTO> personsMedicalRecords = new ArrayList<ResidentInfoMedicalRecordsDTO>();
+        for(Person person : persons) {
+            for(MedicalRecord record : medicalRecordDao.list()) {
+                if(person.getFirstName().toUpperCase().equals(record.getFirstName().toUpperCase()) && person.getLastName().toUpperCase().equals(record.getLastName().toUpperCase())) {
+                    personsMedicalRecords.add(new ResidentInfoMedicalRecordsDTO(person.getLastName(), person.getPhone(), DateUtils.getAge(record.getBirthdate()), record.getMedications(), record.getAllergies()));
                 }
             }
         }

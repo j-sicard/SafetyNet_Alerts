@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,8 @@ public class PersonServiceImpl implements PersonService {
 		return phoneNumbers;
 	}
 
-	public List<String> getPersonEmailFromCity(String city) throws ClassNotFoundException, JsonProcessingException, IOException{
+	public List<String> getPersonEmailFromCity(String city)
+			throws ClassNotFoundException, JsonProcessingException, IOException{
 		List<Person> persons = personDao.list().stream().filter(o -> (city.contains(o.getCity())))
 				.toList();
 		List<String> emails = persons.stream().map(o -> o.getEmail()).collect(Collectors.toList());
@@ -35,7 +37,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 
-	public  List<String> getPersonInfoFromAdresses(List<String> addresses) throws ClassNotFoundException, JsonProcessingException, IOException {
+	public  List<String> getPersonInfoFromAdresses(List<String> addresses)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
 		List<Person> persons = personDao.list().stream().filter(o -> (addresses.contains(o.getAddress())))
 				.toList();
 		List<String> personInfos = persons.stream()
@@ -45,18 +48,20 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 
-	public  List<String> getPersonFirstNameFromAdresses(List<String> addresses) throws ClassNotFoundException, JsonProcessingException, IOException {
+	public  List<String> getPersonFirstNameFromAdresses(List<String> addresses)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
 		List<Person> persons = personDao.list().stream().filter(o -> (addresses.contains(o.getAddress())))
 				.toList();
 		List<String> personInfos = persons.stream().map(o -> o.getFirstName()).collect(Collectors.toList());
 		return personInfos;
 	}
 
-	public List<ResidentInfoDTO> getByAdresses(List<String> adresses) throws ClassNotFoundException, IOException, JsonProcessingException{
+	public List<ResidentInfoDTO> getByAdresses(List<String> addresses)
+			throws ClassNotFoundException, IOException, JsonProcessingException{
 		List<ResidentInfoDTO> residents = new ArrayList<>();
 
 		for (Person person : personDao.list()) {
-			if (adresses.contains(person.getAddress())) {
+			if (addresses.contains(person.getAddress())) {
 				residents.add(new ResidentInfoDTO(person.getFirstName(), person.getLastName(), person.getAddress(), person.getPhone()));
 			}
 		}
@@ -84,11 +89,24 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public List<Person> getByFirstNameAndLastName(String lastName) throws ClassNotFoundException, JsonProcessingException, IOException {
+	public List<Person> getByFirstNameAndLastName(String lastName)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
 		List<Person> personsToFind = new ArrayList<Person>();
 		List<Person> persons = personDao.list();
 		for(Person person: persons) {
 			if(person.getLastName().toUpperCase().equals(lastName.toUpperCase())) personsToFind.add(person);
+		}
+		return personsToFind;
+	}
+
+	public List<Person> getPersonInfoFromAddress(String address)
+			throws ClassNotFoundException, IOException, JsonProcessingException{
+		List<ResidentInfoMedicalRecordsDTO> residents = new ArrayList<>();
+
+		List<Person> personsToFind = new ArrayList<Person>();
+		List<Person> persons = personDao.list();
+		for(Person person: persons) {
+			if(person.getAddress().toUpperCase().equals(address.toUpperCase())) personsToFind.add(person);
 		}
 		return personsToFind;
 	}

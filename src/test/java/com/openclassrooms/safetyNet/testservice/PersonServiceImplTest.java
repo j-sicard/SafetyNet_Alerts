@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,32 +26,32 @@ public class PersonServiceImplTest {
 
 	@Test
 	public void testGetPersonPhoneNumberFromAddresses() throws ClassNotFoundException, IOException {
-		List<String> phoneNumbers = this.personneService
+		List<String> phoneNumbers = personneService
 				.getPersonPhoneNumberFromAddresses(Collections.singletonList("1509 Culver St"));
 		assertEquals("841-874-6512", phoneNumbers.get(0));
 	}
 
 	@Test
 	public void testGetPersonEmailFromCity() throws ClassNotFoundException, IOException {
-		assertTrue(this.personneService.getPersonEmailFromCity("Culver").contains("jaboyd@email.com"));
+		assertTrue(personneService.getPersonEmailFromCity("Culver").contains("jaboyd@email.com"));
 	}
 
 	@Test
 	public void testGetPersonInfoFromAdresses() throws ClassNotFoundException, IOException {
-		List<String> personInfos = this.personneService
+		List<String> personInfos = personneService
 				.getPersonInfoFromAdresses(Arrays.asList("1509 Culver St", "123 Main St"));
 		assertTrue(personInfos.contains("nom : John, Boyd, 1509 Culver St, 841-874-6512"));
 	}
 
 	@Test
 	public void testGetPersonFirstNameFromAdresses() throws ClassNotFoundException, IOException {
-		assertTrue(this.personneService.getPersonFirstNameFromAdresses(Collections.singletonList("1509 Culver St"))
+		assertTrue(personneService.getPersonFirstNameFromAdresses(Collections.singletonList("1509 Culver St"))
 				.contains("John"));
 	}
 
 	@Test
 	public void testGetByAdressesGetFirstName() throws ClassNotFoundException, IOException {
-		List<ResidentInfoDTO> residents = this.personneService
+		List<ResidentInfoDTO> residents = personneService
 				.getByAdresses(Arrays.asList("1509 Culver St", "123 Main St"));
 // a changer //
 		ResidentInfoDTO residentInfoDTO = residents.get(0);
@@ -63,11 +63,11 @@ public class PersonServiceImplTest {
 
 	@Test
 	public void testGetNbChildrenNoChildren() {
-		assertEquals(2, this.personneService.getNbChildren(Arrays.asList(18, 5, 30, 40, 15)));
+		assertEquals(2, personneService.getNbChildren(Arrays.asList(18, 5, 30, 40, 15)));
 	}
 
 	@Test
 	public void testGetNbAdult() {
-		assertEquals(3, this.personneService.getNbAdult(Arrays.asList(18, 5, 30, 40, 15)));
+		assertEquals(3, personneService.getNbAdult(Arrays.asList(18, 5, 30, 40, 15)));
 	}
 }

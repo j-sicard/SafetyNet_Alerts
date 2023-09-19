@@ -8,15 +8,10 @@ public class PersonContactInfoDTO implements Serializable {
      * UUID
      */
     private static final long serialVersionUID = -4815539740390384741L;
-
     private String firstName;
-
     private String lastName;
-
     private String address;
-
     private String phone;
-
     private String age;
 
     public PersonContactInfoDTO(String firstName, String lastName, String address, String phone, String age) {

@@ -24,4 +24,11 @@ public class StationServiceImpl implements StationService {
         return stationAddresses;
     }
 
+    public String GetStationByAddress(String address) throws ClassNotFoundException, JsonProcessingException, IOException{
+        List<FireStation> fireStations = fireStationDao.list().stream().filter(o -> (o.getAddress().equals(address)))
+                .toList();
+        String stationNumber = fireStations.stream().map(o -> o.getStation()).collect(Collectors.toList()).toString();
+        return stationNumber;
+    }
+
 }

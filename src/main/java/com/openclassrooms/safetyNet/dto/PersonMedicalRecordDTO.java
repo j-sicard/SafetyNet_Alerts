@@ -9,19 +9,12 @@ public class PersonMedicalRecordDTO implements Serializable {
      * UUID
      */
     private static final long serialVersionUID = -4858071817748617303L;
-
     private String firstName;
-
     private String lastName;
-
     private String address;
-
     private int age;
-
     private String email;
-
     private List<String> medications;
-
     private List<String> allergies;
 
     public PersonMedicalRecordDTO(String firstName, String lastName, String address, int age, String email,

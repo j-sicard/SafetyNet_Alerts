@@ -9,7 +9,6 @@ import org.springframework.util.CollectionUtils;
 import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
-
 public class FireStationDaoTest {
     private FireStationDao fireStationDao = new FireStationDaoImpl("src/test/resources/data.json");
     @Test

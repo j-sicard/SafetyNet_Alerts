@@ -9,4 +9,5 @@ public interface StationService {
 	public List<String> listStationAddresses(String firestation)
 			throws ClassNotFoundException, JsonProcessingException, IOException;
 
+	public String GetStationByAddress(String address) throws ClassNotFoundException, JsonProcessingException, IOException;
 }
