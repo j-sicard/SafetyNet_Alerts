@@ -7,18 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class ResidentInfoDTO implements Serializable {
-
 	/**
 	 * UUID
 	 */
 	private static final long serialVersionUID = -4731751991191033547L;
-
 	private String firstName;
-
 	private String lastName;
-
 	private String address;
-
 	private String phone;
 
 	public ResidentInfoDTO(String firstName, String lastName, String address, String phone) {
@@ -70,5 +65,4 @@ public class ResidentInfoDTO implements Serializable {
 			return "";
 		}
 	}
-
 }

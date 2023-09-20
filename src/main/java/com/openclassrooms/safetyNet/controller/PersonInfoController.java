@@ -3,7 +3,7 @@ package com.openclassrooms.safetyNet.controller;
 import java.io.IOException;
 import java.util.List;
 
-import org.codehaus.jackson.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,8 @@ public class PersonInfoController {
     MedicalRecordService medicalRecordService;
 
     @GetMapping
-    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(@RequestParam String firstName, @RequestParam String lastName) throws ClassNotFoundException, JsonProcessingException, IOException {
+    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(@RequestParam String firstName, @RequestParam String lastName)
+            throws ClassNotFoundException, JsonProcessingException, IOException {
         List<Person> persons = personService.getByFirstNameAndLastName(lastName);
         return medicalRecordService.getPersonsMedicalRecords(persons);
     }

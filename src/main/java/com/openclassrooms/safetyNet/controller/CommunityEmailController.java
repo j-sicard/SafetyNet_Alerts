@@ -2,7 +2,6 @@ package com.openclassrooms.safetyNet.controller;
 
 
 import com.openclassrooms.safetyNet.service.PersonService;
-import org.codehaus.jackson.JsonProcessingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ public class CommunityEmailController {
     PersonService personService;
 
     @GetMapping(value = "/communityEmail")
-    public List<String> getCommunityEmails(@RequestParam String city) throws ClassNotFoundException, JsonProcessingException, IOException {
+    public List<String> getCommunityEmails(@RequestParam String city) throws ClassNotFoundException, IOException {
         return personService.getPersonEmailFromCity(city);
     }
 }

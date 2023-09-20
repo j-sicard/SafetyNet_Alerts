@@ -3,7 +3,6 @@ package com.openclassrooms.safetyNet.dto;
 import java.io.Serializable;
 
 public class PersonContactInfoDTO implements Serializable {
-
     /**
      * UUID
      */
@@ -13,7 +12,6 @@ public class PersonContactInfoDTO implements Serializable {
     private String address;
     private String phone;
     private String age;
-
     public PersonContactInfoDTO(String firstName, String lastName, String address, String phone, String age) {
         super();
         this.firstName = firstName;
@@ -22,7 +20,6 @@ public class PersonContactInfoDTO implements Serializable {
         this.phone = phone;
         this.age = age;
     }
-
     public String getFirstName() {
         return firstName;
     }
@@ -62,6 +59,4 @@ public class PersonContactInfoDTO implements Serializable {
     public void setAge(String age) {
         this.age = age;
     }
-
-
 }

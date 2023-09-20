@@ -3,7 +3,7 @@ package com.openclassrooms.safetyNet.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.codehaus.jackson.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
 import com.openclassrooms.safetyNet.model.Person;
@@ -26,4 +26,8 @@ public interface PersonService {
 	public int getNbChildren(List<Integer> ages);
 
 	public List<Person> getByFirstNameAndLastName(String lastName) throws ClassNotFoundException, JsonProcessingException, IOException;
+
+	public List<Person> getFromAddresses(List<String> stationsAddresses) throws ClassNotFoundException, JsonProcessingException, IOException;
+
+	public List<Person> sortPeopleByAddress(List<Person> people) throws	ClassNotFoundException, JsonProcessingException, IOException;
 }

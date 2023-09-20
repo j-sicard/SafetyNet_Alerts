@@ -1,6 +1,6 @@
 package com.openclassrooms.safetyNet.testdao;
 
-import org.codehaus.jackson.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dao.PersonDao;
 import com.openclassrooms.safetyNet.dao.impl.PersonDaoImpl;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class PersonDaoTest {
     private PersonDao personDao = new PersonDaoImpl("src/test/resources/data.json");
 
     @Test
-    void testListPerson() throws ClassNotFoundException,JsonProcessingException, IOException {
+    void testListPerson() throws ClassNotFoundException, JsonProcessingException, IOException {
         assertTrue(!CollectionUtils.isEmpty(personDao.list()));
     }
 }

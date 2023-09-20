@@ -2,11 +2,12 @@ package com.openclassrooms.safetyNet.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
-import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.PersonDao;
@@ -36,7 +37,6 @@ public class PersonServiceImpl implements PersonService {
 		return emails;
 	}
 
-
 	public  List<String> getPersonInfoFromAdresses(List<String> addresses)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		List<Person> persons = personDao.list().stream().filter(o -> (addresses.contains(o.getAddress())))
@@ -46,7 +46,6 @@ public class PersonServiceImpl implements PersonService {
 				.collect(Collectors.toList());
 		return personInfos;
 	}
-
 
 	public  List<String> getPersonFirstNameFromAdresses(List<String> addresses)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
@@ -110,6 +109,29 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return personsToFind;
 	}
+
+	public List<Person> getFromAddresses(List<String> stationsAddresses )
+			throws ClassNotFoundException, JsonProcessingException, IOException{
+		List<Person> persons = new ArrayList<>();
+		for (Person person : personDao.list()){
+			if (stationsAddresses.contains(person.getAddress())){
+				persons.add(person);
+			}
+		}
+		return persons;
+	}
+
+	public List<Person> sortPeopleByAddress(List<Person> people) throws
+			ClassNotFoundException, JsonProcessingException, IOException {
+		Comparator<Person> addressComparator = Comparator.comparing(Person::getAddress);
+
+		List<Person> sortedPeople = people.stream()
+				.sorted(addressComparator)
+				.collect(Collectors.toList());
+
+		return sortedPeople;
+	}
+
 }
 
 

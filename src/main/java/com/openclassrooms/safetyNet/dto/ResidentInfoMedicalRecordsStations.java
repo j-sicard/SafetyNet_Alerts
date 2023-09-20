@@ -1,37 +1,44 @@
 package com.openclassrooms.safetyNet.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResidentInfoMedicalRecordsStations {
-    public List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords;
-    public String stationNumbers;
+public class ResidentInfoMedicalRecordsStations implements Serializable {
 
-    public ResidentInfoMedicalRecordsStations(List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords, String stationNumbers) {
-        this.residentInfoMedicalRecords = residentInfoMedicalRecords;
-        this.stationNumbers = stationNumbers;
-    }
+	/**
+	 * UUID
+	 */
+	private static final long serialVersionUID = -6789795691899668756L;
+	public List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords;
+	public String stationNumbers;
 
-    public List<ResidentInfoMedicalRecordsDTO> getResidentInfoMedicalRecords() {
-        return residentInfoMedicalRecords;
-    }
+	public ResidentInfoMedicalRecordsStations(List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords,
+			String stationNumbers) {
+		this.residentInfoMedicalRecords = residentInfoMedicalRecords;
+		this.stationNumbers = stationNumbers;
+	}
 
-    public void setResidentInfoMedicalRecords(List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords) {
-        this.residentInfoMedicalRecords = residentInfoMedicalRecords;
-    }
+	public List<ResidentInfoMedicalRecordsDTO> getResidentInfoMedicalRecords() {
+		return residentInfoMedicalRecords;
+	}
 
-    public String getStationNumbers() {
-        return stationNumbers;
-    }
+	public void setResidentInfoMedicalRecords(List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords) {
+		this.residentInfoMedicalRecords = residentInfoMedicalRecords;
+	}
 
-    public void setStationNumbers(String stationNumbers) {
-        this.stationNumbers = stationNumbers;
-    }
+	public String getStationNumbers() {
+		return stationNumbers;
+	}
 
-    @Override
-    public String toString() {
-        return "ResidentInfoMedicalRecordsStations{" +
-                "residentInfoMedicalRecords=" + residentInfoMedicalRecords +
-                ", stationNumbers='" + stationNumbers + '\'' +
-                '}';
-    }
+	public void setStationNumbers(String stationNumbers) {
+		this.stationNumbers = stationNumbers;
+	}
+
+	@Override
+	public String toString() {
+		return "ResidentInfoMedicalRecordsStations{" +
+				"residentInfoMedicalRecords=" + residentInfoMedicalRecords +
+				", stationNumbers='" + stationNumbers + '\'' +
+				'}';
+	}
 }

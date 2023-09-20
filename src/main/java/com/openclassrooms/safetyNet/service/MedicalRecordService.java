@@ -1,10 +1,12 @@
 package com.openclassrooms.safetyNet.service;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
-import org.codehaus.jackson.JsonProcessingException;
 
 import com.openclassrooms.safetyNet.dto.PersonMedicalRecordDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
@@ -16,4 +18,6 @@ public interface MedicalRecordService {
     public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(List<Person> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
 
     public List<ResidentInfoMedicalRecordsDTO> getResidentMedicalRecords(List<Person> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
+
+    public List<ResidentInfoMedicalRecordsDTO> sortPeople(List<ResidentInfoMedicalRecordsDTO> people)throws ClassNotFoundException, JsonProcessingException, IOException;
 }

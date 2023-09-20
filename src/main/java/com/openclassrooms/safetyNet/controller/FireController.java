@@ -1,11 +1,12 @@
 package com.openclassrooms.safetyNet.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsStations;
 import com.openclassrooms.safetyNet.service.MedicalRecordService;
 import com.openclassrooms.safetyNet.service.PersonService;
 import com.openclassrooms.safetyNet.service.StationService;
-import org.codehaus.jackson.JsonProcessingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class FireController {
     throws ClassNotFoundException, JsonProcessingException, IOException
     {
         List<ResidentInfoMedicalRecordsDTO> ResidentInfoMedicalRecords  = medicalRecordService.getResidentMedicalRecords(personService.getPersonInfoFromAddress(address)) ;
-        String StationNumber = stationService.GetStationByAddress(address);
+        String StationNumber = stationService.getStationByAddress(address);
 
         return new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber);
     }

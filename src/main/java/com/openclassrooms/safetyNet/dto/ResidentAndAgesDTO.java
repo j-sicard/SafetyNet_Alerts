@@ -4,18 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ResidentAndAgesDTO implements Serializable{
-
     /**
      * UUID
      */
     private static final long serialVersionUID = -6700907461068655566L;
-
     private List<ResidentInfoDTO> residents;
-
     private int nbAdult;
-
     private int nbChildren;
-
     public ResidentAndAgesDTO(List<ResidentInfoDTO> residents, int nbAdult, int nbChildren) {
         super();
         this.residents = residents;
@@ -46,5 +41,4 @@ public class ResidentAndAgesDTO implements Serializable{
     public void setNbChildren(int nbChildren) {
         this.nbChildren = nbChildren;
     }
-
 }

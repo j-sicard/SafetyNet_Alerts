@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.openclassrooms.safetyNet.model.Person;
-import org.codehaus.jackson.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +48,7 @@ public class PersonServiceImplTest {
 	}
 
 	@Test
-	public void testGetByAdressesGetFirstName() throws ClassNotFoundException, IOException {
+	public void testGetByAdresses() throws ClassNotFoundException, IOException {
 		List<ResidentInfoDTO> residents = personneService
 				.getByAdresses(Arrays.asList("1509 Culver St", "123 Main St"));
 // a changer //

@@ -1,13 +1,11 @@
 package com.openclassrooms.safetyNet.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
-import org.codehaus.jackson.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.MedicalRecordDao;
@@ -63,5 +61,18 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             }
         }
         return personsMedicalRecords;
+    }
+
+
+    public List<ResidentInfoMedicalRecordsDTO> sortPeople(List<ResidentInfoMedicalRecordsDTO> people) {
+
+        Collections.sort(people, Comparator
+                .comparing(ResidentInfoMedicalRecordsDTO::getLastName)
+                .thenComparing(ResidentInfoMedicalRecordsDTO::getPhone)
+                .thenComparing(ResidentInfoMedicalRecordsDTO::getAge)
+                .thenComparing(residentInfoMedicalRecordsDTO -> residentInfoMedicalRecordsDTO.getMedications().toString())
+                .thenComparing(residentInfoMedicalRecordsDTO -> residentInfoMedicalRecordsDTO.getAllergies().toString()));
+
+        return people;
     }
 }

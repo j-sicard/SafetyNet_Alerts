@@ -1,7 +1,7 @@
 package com.openclassrooms.safetyNet.dao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.model.Person;
-import org.codehaus.jackson.JsonProcessingException;
 
 import java.io.IOException;
 
