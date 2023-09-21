@@ -22,7 +22,8 @@ import com.openclassrooms.safetyNet.utils.DateUtils;
 public class MedicalRecordServiceImpl implements MedicalRecordService {
     private MedicalRecordDao medicalRecordDao = new MedicalRecordDaoImpl("src/main/resources/data.json");
 
-    public List<String> getPersonBirthDates(List<ResidentInfoDTO> personInfos)throws ClassNotFoundException, JsonProcessingException, IOException{
+    public List<String> getPersonBirthDates(List<ResidentInfoDTO> personInfos)
+            throws ClassNotFoundException, JsonProcessingException, IOException{
         List<String>birthDates = new ArrayList<String>();
 
         Set<String> personFirstNames = personInfos.stream()
@@ -38,7 +39,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     }
 
     @Override
-    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(List<Person> persons) throws ClassNotFoundException, JsonProcessingException, IOException {
+    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(List<Person> persons)
+            throws ClassNotFoundException, JsonProcessingException, IOException {
         List<PersonMedicalRecordDTO> personsMedicalRecords = new ArrayList<PersonMedicalRecordDTO>();
         for(Person person : persons) {
             for(MedicalRecord record : medicalRecordDao.list()) {
@@ -51,7 +53,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     }
 
     @Override
-    public List<ResidentInfoMedicalRecordsDTO> getResidentMedicalRecords(List<Person> persons) throws ClassNotFoundException, JsonProcessingException, IOException {
+    public List<ResidentInfoMedicalRecordsDTO> getResidentMedicalRecords(List<Person> persons)
+            throws ClassNotFoundException, JsonProcessingException, IOException {
         List<ResidentInfoMedicalRecordsDTO> personsMedicalRecords = new ArrayList<ResidentInfoMedicalRecordsDTO>();
         for(Person person : persons) {
             for(MedicalRecord record : medicalRecordDao.list()) {
