@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
 import com.openclassrooms.safetyNet.model.Person;
 
@@ -30,4 +31,10 @@ public interface PersonService {
 	public List<Person> getFromAddresses(List<String> stationsAddresses) throws ClassNotFoundException, JsonProcessingException, IOException;
 
 	public List<Person> sortPeopleByAddress(List<Person> people) throws	ClassNotFoundException, JsonProcessingException, IOException;
+
+	public List<PersonInfoForChildAlertDTO>getPersonInfoForChildAlert(List<Person> persons) throws	ClassNotFoundException, JsonProcessingException, IOException;
+
+	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
+
+	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
 }

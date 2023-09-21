@@ -63,7 +63,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return personsMedicalRecords;
     }
 
-
     public List<ResidentInfoMedicalRecordsDTO> sortPeople(List<ResidentInfoMedicalRecordsDTO> people) {
 
         Collections.sort(people, Comparator

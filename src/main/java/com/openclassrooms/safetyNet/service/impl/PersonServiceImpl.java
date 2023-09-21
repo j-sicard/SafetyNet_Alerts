@@ -7,7 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.openclassrooms.safetyNet.dao.MedicalRecordDao;
+import com.openclassrooms.safetyNet.dao.impl.MedicalRecordDaoImpl;
+import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
+import com.openclassrooms.safetyNet.model.MedicalRecord;
+import com.openclassrooms.safetyNet.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.PersonDao;
@@ -19,6 +24,7 @@ import com.openclassrooms.safetyNet.service.PersonService;
 @Service("PersonService")
 public class PersonServiceImpl implements PersonService {
 	private PersonDao personDao = new PersonDaoImpl("src/main/resources/data.json");
+	private MedicalRecordDao medicalRecordDao = new MedicalRecordDaoImpl("src/main/resources/data.json");
 
 	@Override
 	public List<String> getPersonPhoneNumberFromAddresses(List<String> addresses)
@@ -42,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 		List<Person> persons = personDao.list().stream().filter(o -> (addresses.contains(o.getAddress())))
 				.toList();
 		List<String> personInfos = persons.stream()
-				.map(o -> "nom : " + o.getFirstName() + ", " + o.getLastName() + ", " + o.getAddress() + ", " + o.getPhone())
+				.map(o -> o.getFirstName() + ", " + o.getLastName() + ", " + o.getAddress() + ", " + o.getPhone())
 				.collect(Collectors.toList());
 		return personInfos;
 	}
@@ -132,6 +138,41 @@ public class PersonServiceImpl implements PersonService {
 		return sortedPeople;
 	}
 
+	public List<PersonInfoForChildAlertDTO>getPersonInfoForChildAlert(List<Person> persons)
+			throws ClassNotFoundException, JsonProcessingException, IOException{
+		List<PersonInfoForChildAlertDTO>infoForChildAlerts= new ArrayList<>();
+		for (Person person: persons){
+			for (MedicalRecord record: medicalRecordDao.list()){
+				if(person.getFirstName().toUpperCase().equals(record.getFirstName().toUpperCase()) && person.getLastName().toUpperCase().equals(record.getLastName().toUpperCase())) {
+					infoForChildAlerts.add(new PersonInfoForChildAlertDTO(person.getFirstName(), person.getLastName(), DateUtils.getAge(record.getBirthdate())));
+				}
+			}
+		}
+		return infoForChildAlerts;
+	}
+	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons)
+			throws ClassNotFoundException, JsonProcessingException, IOException{
+		List<PersonInfoForChildAlertDTO> children = new ArrayList<>();
+		for (PersonInfoForChildAlertDTO person: persons){
+			if (person.getAge() < 18 ){
+				children.add(person); 
+			}
+			
+		}
+		return children; 
+	}
+
+	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons)
+			throws ClassNotFoundException, JsonProcessingException, IOException{
+		List<PersonInfoForChildAlertDTO> adult = new ArrayList<>();
+		for (PersonInfoForChildAlertDTO person: persons){
+			if (person.getAge() >= 18 ){
+				adult.add(person);
+			}
+
+		}
+		return adult;
+	}
 }
 
 
