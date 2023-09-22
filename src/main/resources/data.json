@@ -231,6 +231,9 @@
   }, {
     "address" : "951 LoneTree Rd",
     "station" : "2"
+  }, {
+    "address" : "40 Vinegar Hill Road",
+    "station" : "5"
   } ],
   "medicalrecords" : [ {
     "firstName" : "John",
@@ -374,7 +377,7 @@
     "firstName" : "John",
     "lastName" : "Doe",
     "birthdate" : "15/09/1981",
-    "medications" : [ "halopéridol :350mg"],
+    "medications" : [ "halopéridol :350mg" ],
     "allergies" : [ "nillacilan" ]
   } ]
 }

@@ -18,4 +18,6 @@ public interface StationService {
 	public List<String> getAddressStationbyStationNumber(List<String> stationNumbers)
 			throws ClassNotFoundException, JsonProcessingException, IOException;
 
+	public List<FireStation> saveStation(FireStation fireStation)throws ClassNotFoundException,  IOException;
+
 }

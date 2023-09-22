@@ -95,13 +95,13 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
 
             // Récupérer le tableau "medicalrecords"
-            ArrayNode personsArray = (ArrayNode) rootNode.get("medicalrecords");
+            ArrayNode medicalRecordsArray = (ArrayNode) rootNode.get("medicalrecords");
 
             // Convertir l'objet medicalrecord en objet JSON
-            ObjectNode newmedicalrecordNode = objectMapper.valueToTree(medicalRecord);
+            ObjectNode newMedicalrecordNode = objectMapper.valueToTree(medicalRecord);
 
-            // Ajouter le nouvel objet "person" au tableau
-            personsArray.add(newmedicalrecordNode);
+            // Ajouter le nouvel objet "medicalrecord" au tableau
+            medicalRecordsArray.add(newMedicalrecordNode);
 
             // Réécrire le fichier JSON avec le nouvel objet ajouté
             objectMapper.writeValue(jsonFile, rootNode);

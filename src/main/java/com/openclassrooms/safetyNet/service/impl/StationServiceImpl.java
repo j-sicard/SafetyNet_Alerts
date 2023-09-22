@@ -49,4 +49,33 @@ public class StationServiceImpl implements StationService {
         }
         return stationAddresses;
     }
+
+    public List<FireStation> saveStation(FireStation fireStation){
+
+        try {
+            // Charger le fichier JSON existant
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
+
+            File jsonFile = new File("src/main/resources/data.json");
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+            // Récupérer le tableau "persons"
+            ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
+
+            // Convertir l'objet Person en objet JSON
+            ObjectNode newStationNode = objectMapper.valueToTree(fireStation);
+
+            // Ajouter le nouvel objet "fireStation" au tableau
+            stationsArray.add(newStationNode);
+
+            // Réécrire le fichier JSON avec le nouvel objet ajouté
+            objectMapper.writeValue(jsonFile, rootNode);
+
+            System.out.println("Nouvelle caserne ajoutée avec succès au fichier JSON !!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

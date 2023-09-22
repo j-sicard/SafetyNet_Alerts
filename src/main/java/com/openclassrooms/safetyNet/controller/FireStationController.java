@@ -42,12 +42,12 @@ public class FireStationController {
                 return new ResidentAndAgesDTO(residents, nbAdult, nbChildren);
         }
 
-      /*  @PostMapping
+      @PostMapping
         public ResponseEntity<String> createPerson(@RequestBody FireStation fireStation) throws ClassNotFoundException, IOException {
-                stationService.saveFireStation(fireStation);
+                stationService.saveStation(fireStation);
                 String responseMessage = "Nouvelle caserne créée avec succès!";
                 return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
-        }*/
+        }
 }
 
 
