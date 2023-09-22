@@ -34,7 +34,9 @@ public interface PersonService {
 
 	public List<PersonInfoForChildAlertDTO>getPersonInfoForChildAlert(List<Person> persons) throws	ClassNotFoundException, JsonProcessingException, IOException;
 
-	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
+	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons);
 
-	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons) throws ClassNotFoundException, JsonProcessingException, IOException;
+	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons);
+
+	public List<Person> savePerson(Person person)throws ClassNotFoundException, IOException;
 }

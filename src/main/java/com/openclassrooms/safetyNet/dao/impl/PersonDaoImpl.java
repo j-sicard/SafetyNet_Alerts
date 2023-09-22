@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDaoImpl implements PersonDao {
-
-    private String jsonFilePath;
-
+    private final String jsonFilePath;
     public PersonDaoImpl(String jsonFilePath) {
         this.jsonFilePath = jsonFilePath;
     }
@@ -24,9 +22,8 @@ public class PersonDaoImpl implements PersonDao {
         try {
             return DataExtractor.parseJsonArray(mapper.readTree(new File(this.jsonFilePath)).get("persons").toString(), Person.class);
         } catch (ClassNotFoundException | IOException e) {
-            return new ArrayList<Person>();
+            return new ArrayList<>();
         }
     }
-
 }
 

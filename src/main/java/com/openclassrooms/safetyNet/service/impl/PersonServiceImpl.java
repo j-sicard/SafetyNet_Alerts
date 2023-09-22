@@ -1,5 +1,6 @@
 package com.openclassrooms.safetyNet.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,12 +8,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.openclassrooms.safetyNet.dao.MedicalRecordDao;
 import com.openclassrooms.safetyNet.dao.impl.MedicalRecordDaoImpl;
 import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import com.openclassrooms.safetyNet.model.MedicalRecord;
 import com.openclassrooms.safetyNet.utils.DateUtils;
+
+import org.json.JSONException;
+
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.PersonDao;
@@ -150,8 +160,7 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return infoForChildAlerts;
 	}
-	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons)
-			throws ClassNotFoundException, JsonProcessingException, IOException{
+	public List<PersonInfoForChildAlertDTO> getChildren(List<PersonInfoForChildAlertDTO> persons){
 		List<PersonInfoForChildAlertDTO> children = new ArrayList<>();
 		for (PersonInfoForChildAlertDTO person: persons){
 			if (person.getAge() < 18 ){
@@ -162,8 +171,7 @@ public class PersonServiceImpl implements PersonService {
 		return children; 
 	}
 
-	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons)
-			throws ClassNotFoundException, JsonProcessingException, IOException{
+	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons){
 		List<PersonInfoForChildAlertDTO> adult = new ArrayList<>();
 		for (PersonInfoForChildAlertDTO person: persons){
 			if (person.getAge() >= 18 ){
@@ -172,6 +180,35 @@ public class PersonServiceImpl implements PersonService {
 
 		}
 		return adult;
+	}
+
+	public List<Person> savePerson(Person person){
+
+		try {
+			// Charger le fichier JSON existant
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
+
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+			// Récupérer le tableau "persons"
+			ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
+
+			// Convertir l'objet Person en objet JSON
+			ObjectNode newPersonNode = objectMapper.valueToTree(person);
+
+			// Ajouter le nouvel objet "person" au tableau
+			personsArray.add(newPersonNode);
+
+			// Réécrire le fichier JSON avec le nouvel objet ajouté
+			objectMapper.writeValue(jsonFile, rootNode);
+
+			System.out.println("Nouvelle personne ajoutée avec succès au fichier JSON !!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 

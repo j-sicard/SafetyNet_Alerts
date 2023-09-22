@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface PersonDao {
     public List<Person> list() throws ClassNotFoundException, JsonProcessingException, IOException;
-
 }
 
