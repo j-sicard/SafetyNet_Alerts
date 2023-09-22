@@ -1,11 +1,17 @@
 package com.openclassrooms.safetyNet.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
+import com.openclassrooms.safetyNet.model.FireStation;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.MedicalRecordDao;
@@ -76,5 +82,34 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                 .thenComparing(residentInfoMedicalRecordsDTO -> residentInfoMedicalRecordsDTO.getAllergies().toString()));
 
         return people;
+    }
+
+    public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord){
+
+        try {
+            // Charger le fichier JSON existant
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
+
+            File jsonFile = new File("src/main/resources/data.json");
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+            // Récupérer le tableau "medicalrecords"
+            ArrayNode personsArray = (ArrayNode) rootNode.get("medicalrecords");
+
+            // Convertir l'objet medicalrecord en objet JSON
+            ObjectNode newmedicalrecordNode = objectMapper.valueToTree(medicalRecord);
+
+            // Ajouter le nouvel objet "person" au tableau
+            personsArray.add(newmedicalrecordNode);
+
+            // Réécrire le fichier JSON avec le nouvel objet ajouté
+            objectMapper.writeValue(jsonFile, rootNode);
+
+            System.out.println("Nouveau dossier médical ajoutait avec succès au fichier JSON!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
