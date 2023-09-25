@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -245,6 +246,36 @@ public class PersonServiceImpl implements PersonService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public List<Person> deletePerson(String firstName,String lastName)throws ClassNotFoundException, IOException{
+		// Charger le fichier JSON existant
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+		File jsonFile = new File("src/main/resources/data.json");
+		ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+		// Récupérer le tableau "Persons"
+		ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
+
+		// Utiliser un itérateur pour parcourir le tableau "persons"
+		Iterator<JsonNode> personIterator = personsArray.elements();
+		while (personIterator.hasNext()) {
+			JsonNode personNode = personIterator.next();
+			String personFirstName = personNode.get("firstName").asText();
+			String personLastName = personNode.get("lastName").asText();
+
+			if (personFirstName.equals(firstName) && personLastName.equals(lastName)) {
+				// Supprimer la person si elle correspond aux critères
+				personIterator.remove();
+				break;
+			}
+		}
+		// Réécrire le fichier JSON sans le Dossier médicale supprimé
+		objectMapper.writeValue(jsonFile, rootNode);
+		System.out.println("Le profile de la personne a été supprimé avec succès du fichier JSON !!");
 		return null;
 	}
 }

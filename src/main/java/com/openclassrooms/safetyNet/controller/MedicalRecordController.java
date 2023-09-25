@@ -1,8 +1,6 @@
 package com.openclassrooms.safetyNet.controller;
 
-import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.model.MedicalRecord;
-import com.openclassrooms.safetyNet.model.Person;
 import com.openclassrooms.safetyNet.service.MedicalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,5 +26,13 @@ public class MedicalRecordController {
         medicalRecordService.updateMedicalRecord(firstName, lastName, updatedMedicalRecord);
         return  ResponseEntity.status(HttpStatus.CREATED).body("dossier médical mise à jour avec succès!");
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName)
+            throws  IOException, ClassNotFoundException {
+        medicalRecordService.deleteMedicalRecord(firstName, lastName);
+        return ResponseEntity.status(HttpStatus.CREATED).body("le dossier médical a été suprimée avec succès!");
+    }
+
 
 }

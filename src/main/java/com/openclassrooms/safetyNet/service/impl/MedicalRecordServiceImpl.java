@@ -148,4 +148,34 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         }
         return null;
     }
+
+    public List<MedicalRecord> deleteMedicalRecord(String firstName, String lastName) throws IOException, ClassNotFoundException {
+        // Charger le fichier JSON existant
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        File jsonFile = new File("src/main/resources/data.json");
+        ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+        // Récupérer le tableau "medicalrecords"
+        ArrayNode medicalRecordsArray = (ArrayNode) rootNode.get("medicalrecords");
+
+        // Utiliser un itérateur pour parcourir le tableau "medicalrecords"
+        Iterator<JsonNode> MedicalRecordIterator = medicalRecordsArray.elements();
+        while (MedicalRecordIterator.hasNext()) {
+            JsonNode stationNode = MedicalRecordIterator.next();
+            String medicalRecordFirstName = stationNode.get("firstName").asText();
+            String medicalRecordLastName = stationNode.get("lastName").asText();
+
+            if (medicalRecordFirstName.equals(firstName) && medicalRecordLastName.equals(lastName)) {
+                // Supprimer le Dossier médicale si il correspond aux critères
+                MedicalRecordIterator.remove();
+                break;
+            }
+        }
+        // Réécrire le fichier JSON sans le Dossier médicale supprimé
+        objectMapper.writeValue(jsonFile, rootNode);
+        System.out.println("Dossier médicale supprimé avec succès du fichier JSON !!");
+        return null;
+    }
 }

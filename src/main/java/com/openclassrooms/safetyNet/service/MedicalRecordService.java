@@ -25,4 +25,6 @@ public interface MedicalRecordService {
     public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord);
 
     public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord);
+
+    public List<MedicalRecord>deleteMedicalRecord(String firstName, String lastName)throws  ClassNotFoundException, IOException;
 }

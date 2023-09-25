@@ -29,4 +29,11 @@ public class PersonController {
         personService.updateperson(firstName, lastName, person);
         return  ResponseEntity.status(HttpStatus.CREATED).body("profile de la personne mise à jour avec succès!");
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deletePerson(@RequestParam String firstName, @RequestParam String lastName)
+            throws  IOException, ClassNotFoundException {
+        personService.deletePerson(firstName, lastName);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Le profile de la personne a été suprimée avec succès!");
+    }
 }

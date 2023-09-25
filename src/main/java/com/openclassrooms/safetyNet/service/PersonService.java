@@ -42,4 +42,6 @@ public interface PersonService {
 	public List<Person> savePerson(Person person)throws ClassNotFoundException, IOException;
 
 	public List<Person>  updateperson(String firstName, String lastName, Person person)throws ClassNotFoundException, IOException;
+
+	public List<Person> deletePerson(String firstName,String lastName)throws ClassNotFoundException, IOException;
 }

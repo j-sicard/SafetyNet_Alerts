@@ -50,10 +50,18 @@ public class FireStationController {
 
 
         @PutMapping
-        public ResponseEntity<String> updateStation(@RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation) throws IOException, ClassNotFoundException {
+        public ResponseEntity<String> updateStation(@RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation)
+                throws IOException, ClassNotFoundException {
                 stationService.updateStationByAddressStationNumber(address, station, fireStation);
                 return  ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!");
         }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteStation(@RequestParam String station, @RequestParam String address)
+            throws  IOException, ClassNotFoundException {
+            stationService.deleteStation(station, address);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!");
+    }
 }
 
 
