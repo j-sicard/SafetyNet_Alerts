@@ -20,4 +20,6 @@ public interface StationService {
 
 	public List<FireStation> saveStation(FireStation fireStation)throws ClassNotFoundException,  IOException;
 
+	public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation fireStation)throws ClassNotFoundException, IOException;
+
 }

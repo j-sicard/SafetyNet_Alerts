@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
+import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.model.Person;
 
 public interface PersonService {
@@ -39,4 +40,6 @@ public interface PersonService {
 	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons);
 
 	public List<Person> savePerson(Person person)throws ClassNotFoundException, IOException;
+
+	public List<Person>  updateperson(String firstName, String lastName, Person person)throws ClassNotFoundException, IOException;
 }

@@ -8,17 +8,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.openclassrooms.safetyNet.model.Person;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.FireStationDao;
 import com.openclassrooms.safetyNet.dao.impl.FireStationDaoImpl;
 import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.service.StationService;
+
+import javax.xml.crypto.Data;
 
 @Service("StationService")
 public class StationServiceImpl implements StationService {
@@ -73,6 +76,39 @@ public class StationServiceImpl implements StationService {
             objectMapper.writeValue(jsonFile, rootNode);
 
             System.out.println("Nouvelle caserne ajoutée avec succès au fichier JSON !!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation updatedFireStation) {
+        try {
+            // Charger le fichier JSON existant
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            File jsonFile = new File("src/main/resources/data.json");
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+            // Récupérer le tableau "firestations"
+            ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
+
+            // Parcourir le tableau "firestations" pour trouver la caserne à mettre à jour
+            for (JsonNode stationNode : stationsArray) {
+                String stationAddress = stationNode.get("address").asText();
+                String stationNumber = stationNode.get("station").asText();
+
+                if (stationAddress.equals(address) && stationNumber.equals(station)) {
+                    // Mettre à jour la caserne d'incendie si elle correspond aux critères
+                    ((ObjectNode) stationNode).put("station", updatedFireStation.getStation()); // Mettez à jour le numéro de station
+                    break; // Sortez de la boucle une fois que la mise à jour est effectuée
+                }
+            }
+            // Réécrire le fichier JSON avec la caserne d'incendie mise à jour
+            objectMapper.writeValue(jsonFile, rootNode);
+
+            System.out.println("Caserne d'incendie mise à jour avec succès dans le fichier JSON !!");
         } catch (IOException e) {
             e.printStackTrace();
         }

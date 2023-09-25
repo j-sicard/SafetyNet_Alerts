@@ -2,10 +2,12 @@ package com.openclassrooms.safetyNet.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -107,6 +109,40 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             objectMapper.writeValue(jsonFile, rootNode);
 
             System.out.println("Nouveau dossier médical ajoutait avec succès au fichier JSON!!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord){
+        try {
+            // Charger le fichier JSON existant
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            File jsonFile = new File("src/main/resources/data.json");
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+            ArrayNode medicationsNode = objectMapper.createArrayNode();
+            ArrayNode allergiesNode = objectMapper.createArrayNode();
+
+            // Parcourir le tableau "medicalrecords" pour trouver le dossier médical à mettre à jour
+            for (JsonNode medicalRecordNode : (ArrayNode) rootNode.get("medicalrecords")) {
+                if (medicalRecordNode.get("firstName").asText().equals(firstName) && medicalRecordNode.get("lastName").asText().equals(lastName)) {
+                    for (String medication : updatedMedicalRecord.getMedications()) {
+                        medicationsNode.add(medication);
+                    }
+                    for (String allergies : updatedMedicalRecord.getAllergies()) {
+                        allergiesNode.add(allergies);
+                    }
+                    ((ObjectNode) medicalRecordNode).put("birthdate", updatedMedicalRecord.getBirthdate()); // Mettez à jour la date de naissance
+                    ((ObjectNode) medicalRecordNode).set("medications", medicationsNode);// Mettez à jour les médicaments
+                    ((ObjectNode) medicalRecordNode).set("allergies", allergiesNode);// Mettez à jour les allergies
+                    break;
+                }
+            }
+            objectMapper.writeValue(jsonFile, rootNode);
+            System.out.println("Dossier médical mis à jour avec succès dans le fichier JSON !!");
         } catch (IOException e) {
             e.printStackTrace();
         }

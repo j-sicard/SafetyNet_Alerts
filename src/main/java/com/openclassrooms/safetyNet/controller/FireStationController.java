@@ -43,10 +43,16 @@ public class FireStationController {
         }
 
       @PostMapping
-        public ResponseEntity<String> createPerson(@RequestBody FireStation fireStation) throws ClassNotFoundException, IOException {
+        public ResponseEntity<String> createStation(@RequestBody FireStation fireStation) throws ClassNotFoundException, IOException {
                 stationService.saveStation(fireStation);
-                String responseMessage = "Nouvelle caserne créée avec succès!";
-                return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
+                return ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!");
+        }
+
+
+        @PutMapping
+        public ResponseEntity<String> updateStation(@RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation) throws IOException, ClassNotFoundException {
+                stationService.updateStationByAddressStationNumber(address, station, fireStation);
+                return  ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!");
         }
 }
 

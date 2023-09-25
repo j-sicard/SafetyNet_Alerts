@@ -23,4 +23,6 @@ public interface MedicalRecordService {
     public List<ResidentInfoMedicalRecordsDTO> sortPeople(List<ResidentInfoMedicalRecordsDTO> people)throws ClassNotFoundException, JsonProcessingException, IOException;
 
     public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord);
+
+    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord);
 }

@@ -210,6 +210,43 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return null;
 	}
+
+	public List<Person>  updateperson(String firstName, String lastName, Person updatedperson)throws ClassNotFoundException, IOException{
+		try {
+			// Charger le fichier JSON existant
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+			File jsonFile = new File("src/main/resources/data.json");
+			ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+			// Récupérer le tableau "persons"
+			ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
+
+			// Parcourir le tableau "personsArray" pour trouver la caserne à mettre à jour
+			for (JsonNode stationNode : personsArray) {
+				String personFirstName = stationNode.get("firstName").asText();
+				String personLastName = stationNode.get("lastName").asText();
+
+				if (personFirstName.equals(firstName) && personLastName.equals(lastName)) {
+					// Mettre à jour du profile de la personne si elle correspond aux critères
+					((ObjectNode) stationNode).put("address", updatedperson.getAddress());
+					((ObjectNode) stationNode).put("city", updatedperson.getCity());
+					((ObjectNode) stationNode).put("zip", updatedperson.getZip());
+					((ObjectNode) stationNode).put("phone", updatedperson.getPhone());
+					((ObjectNode) stationNode).put("email", updatedperson.getEmail());
+					break;
+				}
+			}
+			// Réécrire le fichier JSON avec le profile de la personne mise à jour
+			objectMapper.writeValue(jsonFile, rootNode);
+
+			System.out.println("profile de la personne mise à jour avec succès dans le fichier JSON !!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
 
 
