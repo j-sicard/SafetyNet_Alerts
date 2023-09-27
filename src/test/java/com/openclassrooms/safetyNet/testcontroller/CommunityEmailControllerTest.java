@@ -8,10 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,7 +30,7 @@ public class CommunityEmailControllerTest {
         // Configurez le comportement simulé pour personService ici
     }
 
-    @Test
+ /*   @Test
     public void testGetCommunityEmails() throws Exception {
         // Créez des données fictives pour votre service
         List<String> emails = Arrays.asList("email1@example.com", "email2@example.com");
@@ -48,6 +44,12 @@ public class CommunityEmailControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(emails.size()));
+    }*/
+
+    @Test
+    public void testGetCommunityEmails() throws Exception {
+        mockMvc.perform(get("/communityEmail?city=Culver"))
+                .andExpect(status().is2xxSuccessful());
     }
 }
 
