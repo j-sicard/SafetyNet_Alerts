@@ -50,5 +50,31 @@ public class MedicalRecordServiceTest {
         String medicationsString = resident1.getMedications().toString().replaceAll("\\[|\\]|\\s", "");
         assertEquals("pharmacol:5000mg,terazine:10mg,noznazol:250mg", medicationsString);
     }
-}
+    private static final String TEST_DATA_FILE = "src/test/resources/test-data.json";
 
+/*    @Test
+    public void testSaveMedicalRecord() throws IOException, ClassNotFoundException {
+        // Charger le fichier de test JSON spécifique
+        ObjectMapper objectMapper = new ObjectMapper();
+        File jsonFile = new File(TEST_DATA_FILE);
+        ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+        ArrayNode medicalRecordsArray = (ArrayNode) rootNode.get("medicalrecords");
+        int initialRecordCount = medicalRecordsArray.size();
+
+        MedicalRecord medicalRecord = new MedicalRecord();
+        medicalRecord.setFirstName("jean");
+        medicalRecord.setLastName("lassal");
+        medicalRecord.setBirthdate("10/12/12");
+        medicalRecord.setMedications(Collections.singletonList("dolipane: 100g"));
+        medicalRecord.setAllergies(Collections.singletonList("piments"));
+
+        medicalRecordService.saveMedicalRecord(medicalRecord);
+        // Relire le fichier JSON après l'ajout et vérifier que le nombre d'objets a augmenté d'un
+        objectMapper = new ObjectMapper();
+        rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+        medicalRecordsArray = (ArrayNode) rootNode.get("medicalrecords");
+        int finalRecordCount = medicalRecordsArray.size();
+
+        assertEquals(initialRecordCount + 1, finalRecordCount);
+    }*/
+}
