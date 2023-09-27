@@ -183,6 +183,22 @@
     "zip" : "97451",
     "phone" : "841-874-7458",
     "email" : "gramps@email.com"
+  }, {
+    "firstName" : "Rayane",
+    "lastName" : "Berrada",
+    "address" : null,
+    "city" : null,
+    "zip" : null,
+    "phone" : null,
+    "email" : null
+  }, {
+    "firstName" : "Rayane",
+    "lastName" : "Berrada",
+    "address" : null,
+    "city" : null,
+    "zip" : null,
+    "phone" : null,
+    "email" : null
   } ],
   "firestations" : [ {
     "address" : "1509 Culver St",
