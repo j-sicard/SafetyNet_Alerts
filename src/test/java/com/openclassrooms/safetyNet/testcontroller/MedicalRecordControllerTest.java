@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -35,6 +36,16 @@ public class MedicalRecordControllerTest {
                 .param("firstName", "Tim")
                 .param("lastName", "Burton")
         ).andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void updatePersonTest() throws Exception {
+        mockMvc.perform(put("/medicalRecord")
+                        .contentType("application/json")
+                        .param("firstName", "Fabien")
+                        .param("lastName", "Barteze")
+                        .content("{ \"firstName\" : \"Fabien\", \"lastName\" : \"Barteze\", \"birthdate\" : \"12/10/1968\", \"medications\" : [\"Tramadol\"], \"allergies\" : [ \"shellfish\" ] }"))
+                .andExpect(status().is2xxSuccessful());
     }
 
 }
