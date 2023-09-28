@@ -21,9 +21,6 @@ import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import com.openclassrooms.safetyNet.model.MedicalRecord;
 import com.openclassrooms.safetyNet.utils.DateUtils;
 
-import org.json.JSONException;
-
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetyNet.dao.PersonDao;
@@ -46,11 +43,24 @@ public class PersonServiceImpl implements PersonService {
 		return phoneNumbers;
 	}
 
-	public List<String> getPersonEmailFromCity(String city)
+	/*public List<String> getPersonEmailFromCity(String city)
 			throws ClassNotFoundException, JsonProcessingException, IOException{
 		List<Person> persons = personDao.list().stream().filter(o -> (city.contains(o.getCity())))
 				.toList();
 		List<String> emails = persons.stream().map(o -> o.getEmail()).collect(Collectors.toList());
+		return emails;
+	}*/
+
+	public List<String> getPersonEmailFromCity(String city)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		List<Person> personsInCity = personDao.list().stream()
+				.filter(person -> city.equals(person.getCity())) // Compare les villes
+				.collect(Collectors.toList());
+
+		List<String> emails = personsInCity.stream()
+				.map(Person::getEmail) // Utilisation de la référence de méthode
+				.collect(Collectors.toList());
+
 		return emails;
 	}
 
@@ -115,7 +125,7 @@ public class PersonServiceImpl implements PersonService {
 		return personsToFind;
 	}
 
-	public List<Person> getPersonInfoFromAddress(String address)
+	/*public List<Person> getPersonInfoFromAddress(String address)
 			throws ClassNotFoundException, IOException, JsonProcessingException{
 		List<ResidentInfoMedicalRecordsDTO> residents = new ArrayList<>();
 
@@ -125,6 +135,16 @@ public class PersonServiceImpl implements PersonService {
 			if(person.getAddress().toUpperCase().equals(address.toUpperCase())) personsToFind.add(person);
 		}
 		return personsToFind;
+	}*/
+
+	public List<Person> getPersonInfoFromAddress(String address)
+			throws ClassNotFoundException, IOException, JsonProcessingException {
+		return personDao.list().stream()
+				.filter(person -> {
+					String personAddress = person.getAddress();
+					return personAddress != null && personAddress.equalsIgnoreCase(address);
+				})
+				.collect(Collectors.toList());
 	}
 
 	public List<Person> getFromAddresses(List<String> stationsAddresses )
