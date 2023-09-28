@@ -23,7 +23,7 @@ public class PersonControllerTest {
     public void createPersonTest() throws Exception {
         mockMvc.perform(post("/person")
                 .contentType(MediaType.APPLICATION_JSON) // Utilisez MediaType.APPLICATION_JSON
-                .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"birthdate\" : \"10/11/1968\", \"medications\" : [\"Doliprane\"], \"allergies\" : [ \"cacahuete\" ] }")
+                .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"address\" : \" 1 address test\", \"city\" : \"Culver\", \"zip\" :  \"97451\", \"phone\" : \"841-874-6512\", \"email\" : \"jaboyd@email.com\"  }")
         ).andExpect(status().is2xxSuccessful());
     }
 
@@ -44,7 +44,7 @@ public class PersonControllerTest {
                         .contentType("application/json")
                         .param("firstName", "Fabien")
                         .param("lastName", "Barteze")
-                        .content("{ \"firstName\" : \"Fabien\", \"lastName\" : \"Barteze\", \"birthdate\" : \"12/10/1968\", \"medications\" : [\"Tramadol\"], \"allergies\" : [ \"shellfish\" ] }"))
+                .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"address\" : \" 1 address test\", \"city\" : \"Culver\", \"zip\" :  \"97451\", \"phone\" : \"841-874-6512\", \"email\" : \"jaboyd@email.com\"  }"))
                 .andExpect(status().is2xxSuccessful());
     }
 }

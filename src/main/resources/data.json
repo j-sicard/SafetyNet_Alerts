@@ -258,11 +258,11 @@
   }, {
     "firstName" : "Fabien",
     "lastName" : "Barteze",
-    "address" : null,
-    "city" : null,
-    "zip" : null,
-    "phone" : null,
-    "email" : null
+    "address" : " 1 address test",
+    "city" : "Culver",
+    "zip" : "97451",
+    "phone" : "841-874-6512",
+    "email" : "jaboyd@email.com"
   }, {
     "firstName" : "fabien",
     "lastName" : "Bartez",
@@ -295,6 +295,22 @@
     "zip" : null,
     "phone" : null,
     "email" : null
+  }, {
+    "firstName" : "fabien",
+    "lastName" : "Bartez",
+    "address" : null,
+    "city" : null,
+    "zip" : null,
+    "phone" : null,
+    "email" : null
+  }, {
+    "firstName" : "fabien",
+    "lastName" : "Bartez",
+    "address" : " 1 address test",
+    "city" : "Culver",
+    "zip" : "97451",
+    "phone" : "841-874-6512",
+    "email" : "jaboyd@email.com"
   } ],
   "firestations" : [ {
     "address" : "1509 Culver St",
@@ -335,6 +351,9 @@
   }, {
     "address" : "951 LoneTree Rd",
     "station" : "2"
+  }, {
+    "address" : "addressTest",
+    "station" : "stationTest2"
   }, {
     "address" : "addressTest",
     "station" : "stationTest"
@@ -477,6 +496,12 @@
     "birthdate" : "08/06/1945",
     "medications" : [ "tradoxidine:400mg" ],
     "allergies" : [ ]
+  }, {
+    "firstName" : "fabien",
+    "lastName" : "Bartez",
+    "birthdate" : "10/11/1968",
+    "medications" : [ "Doliprane" ],
+    "allergies" : [ "cacahuete" ]
   }, {
     "firstName" : "fabien",
     "lastName" : "Bartez",
