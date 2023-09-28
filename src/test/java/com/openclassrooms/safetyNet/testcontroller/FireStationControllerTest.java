@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
     @SpringBootTest
@@ -43,5 +44,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .param("address", "addressTest")
                     .param("station", "stationTest")
             ).andExpect(status().is2xxSuccessful());
+        }
+
+
+        @Test
+        public void updatePersonTest() throws Exception {
+            mockMvc.perform(put("/firestation")
+                            .contentType("application/json")
+                            .param("address", "addressTest")
+                            .param("station", "stationTest")
+                            .content("{ \"address\" : \"addressTest\", \"station\" : \"stationTest2\"}"))
+                    .andExpect(status().is2xxSuccessful());
         }
     }
