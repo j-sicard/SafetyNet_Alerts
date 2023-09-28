@@ -17,7 +17,7 @@ public class PhoneAlertControllerTest {
 
     @Test
     public void testGetResidentPhoneNumbersByStation() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/phoneAlert?firestation=1")) // Utilisez MockMvcRequestBuilders.get pour créer une requête GET
+        mockMvc.perform(MockMvcRequestBuilders.get("/phoneAlert?firestation=1"))
                 .andExpect(status().is2xxSuccessful());
     }
 }
