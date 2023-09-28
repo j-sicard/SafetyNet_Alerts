@@ -33,4 +33,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .content("{ \"address\" : \"addressTest\", \"station\" : \"stationTest\"}")
             ).andExpect(status().is2xxSuccessful());
         }
+
+
+        @Test
+        public void deleteStationTest() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders
+                    .delete("/firestation")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .param("address", "addressTest")
+                    .param("station", "stationTest")
+            ).andExpect(status().is2xxSuccessful());
+        }
     }
