@@ -477,5 +477,11 @@
     "birthdate" : "08/06/1945",
     "medications" : [ "tradoxidine:400mg" ],
     "allergies" : [ ]
+  }, {
+    "firstName" : "fabien",
+    "lastName" : "Bartez",
+    "birthdate" : "10/11/1968",
+    "medications" : [ "Doliprane" ],
+    "allergies" : [ "cacahuete" ]
   } ]
 }
