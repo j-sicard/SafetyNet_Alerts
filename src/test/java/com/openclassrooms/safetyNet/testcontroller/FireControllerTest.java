@@ -17,7 +17,7 @@ public class FireControllerTest {
 
     @Test
     public void testGetPersonsAndMedicalRecordsAndStationNumberOfAddress() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/fire?address=1509%20Culver%20St")) // Utilisez MockMvcRequestBuilders.get pour créer une requête GET
+        mockMvc.perform(MockMvcRequestBuilders.get("/fire?address=1509%20Culver%20St"))
                 .andExpect(status().is2xxSuccessful());
     }
 }

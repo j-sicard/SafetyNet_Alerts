@@ -287,6 +287,14 @@
     "zip" : null,
     "phone" : null,
     "email" : null
+  }, {
+    "firstName" : "fabien",
+    "lastName" : "Bartez",
+    "address" : null,
+    "city" : null,
+    "zip" : null,
+    "phone" : null,
+    "email" : null
   } ],
   "firestations" : [ {
     "address" : "1509 Culver St",
@@ -327,6 +335,9 @@
   }, {
     "address" : "951 LoneTree Rd",
     "station" : "2"
+  }, {
+    "address" : "addressTest",
+    "station" : "stationTest"
   } ],
   "medicalrecords" : [ {
     "firstName" : "John",
