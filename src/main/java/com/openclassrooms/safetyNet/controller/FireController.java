@@ -7,6 +7,8 @@ import com.openclassrooms.safetyNet.service.MedicalRecordService;
 import com.openclassrooms.safetyNet.service.PersonService;
 import com.openclassrooms.safetyNet.service.StationService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,13 +26,19 @@ public class FireController {
     @Autowired
     MedicalRecordService medicalRecordService;
 
-    @GetMapping(value = "/fire")
-    public ResidentInfoMedicalRecordsStations getPersonInfoAndMedicalRecordsByFireStationAddresse(@RequestParam String address)
-    throws ClassNotFoundException, JsonProcessingException, IOException
-    {
-        List<ResidentInfoMedicalRecordsDTO> ResidentInfoMedicalRecords  = medicalRecordService.getResidentMedicalRecords(personService.getPersonInfoFromAddress(address)) ;
-        String StationNumber = stationService.getStationByAddress(address);
+    private static final Logger LOGGER =  LogManager.getLogger( ChildrenAlertController.class );
 
-        return new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber);
+    @GetMapping(value = "/fire")
+    public ResidentInfoMedicalRecordsStations getPersonInfoAndMedicalRecordsByFireStationAddresse(@RequestParam String address){
+        try {
+            List<ResidentInfoMedicalRecordsDTO> ResidentInfoMedicalRecords  = medicalRecordService.getResidentMedicalRecords(personService.getPersonInfoFromAddress(address)) ;
+            String StationNumber = stationService.getStationByAddress(address);
+            LOGGER.info(new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber));
+            return new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber);
+        }catch (ClassNotFoundException | IOException e){
+            LOGGER.error("Impossible de lire le fichier data.json");
+            return null;
+        }
+
     }
 }
