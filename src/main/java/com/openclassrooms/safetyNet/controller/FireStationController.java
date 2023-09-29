@@ -56,7 +56,7 @@ public class FireStationController {
                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!"));
                 return ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!");
             }catch (ClassNotFoundException | IOException e){
-                LOGGER.error("Impossible de crée une nouvelle caserne dans le fichioer data.json");
+                LOGGER.error("Impossible de crée une nouvelle caserne dans le fichier data.json");
                 return null;
             }
         }
@@ -64,18 +64,28 @@ public class FireStationController {
 
 
         @PutMapping
-        public ResponseEntity<String> updateStation(@RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation)
-                throws IOException, ClassNotFoundException {
+        public ResponseEntity<String> updateStation(
+                @RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation){
+            try {
                 stationService.updateStationByAddressStationNumber(address, station, fireStation);
+                LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!"));
                 return  ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!");
+            }catch (ClassNotFoundException | IOException e ){
+                LOGGER.error("Impossible de modifiée la nouvelle caserne dans le fichier data.json");
+                return null;
+            }
         }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteStation(@RequestParam String station, @RequestParam String address)
-            throws  IOException, ClassNotFoundException {
-            stationService.deleteStation(station, address);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!");
-    }
+        @DeleteMapping
+        public ResponseEntity<String> deleteStation(@RequestParam String station, @RequestParam String address){
+                try {
+                 stationService.deleteStation(station, address);
+                 return ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!");
+             }catch (ClassNotFoundException | IOException e ){
+                    LOGGER.error("Impossible de suprimée la nouvelle caserne dans le fichier data.json");
+                 return null;
+             }
+        }
 }
 
 
