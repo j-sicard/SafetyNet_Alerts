@@ -28,9 +28,15 @@ public class PersonInfoController {
     private static final Logger LOGGER =  LogManager.getLogger( PersonInfoController.class );
 
     @GetMapping
-    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(@RequestParam String firstName, @RequestParam String lastName)
-            throws ClassNotFoundException, JsonProcessingException, IOException {
-        List<Person> persons = personService.getByFirstNameAndLastName(lastName);
-        return medicalRecordService.getPersonsMedicalRecords(persons);
+    public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(@RequestParam String firstName, @RequestParam String lastName){
+        try {
+            List<Person> persons = personService.getByFirstNameAndLastName(lastName);
+            LOGGER.info(medicalRecordService.getPersonsMedicalRecords(persons));
+            return medicalRecordService.getPersonsMedicalRecords(persons);
+        }catch(ClassNotFoundException | IOException e){
+            LOGGER.error("Impossible de lire le fichier data.json");
+            return null;
+        }
+
     }
 }
