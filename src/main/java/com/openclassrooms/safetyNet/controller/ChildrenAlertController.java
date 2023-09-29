@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ChildrenAdultDTO;
 import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class ChildrenAlertController {
     public ChildrenAdultDTO getChildFromAddress(@RequestParam String address)
             throws ClassNotFoundException, IOException, JsonProcessingException {
         List<PersonInfoForChildAlertDTO> Persons = personService.getPersonInfoForChildAlert(personService.getPersonInfoFromAddress(address));
-        return new ChildrenAdultDTO(personService.getChildren(Persons) , personService.getAdult(Persons));
 
+        return new ChildrenAdultDTO(personService.getChildren(Persons) , personService.getAdult(Persons));
     }
 }

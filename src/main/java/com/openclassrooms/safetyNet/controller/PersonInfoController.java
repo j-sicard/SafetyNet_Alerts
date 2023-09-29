@@ -18,10 +18,8 @@ import com.openclassrooms.safetyNet.service.PersonService;
 @RestController
 @RequestMapping("/personInfo")
 public class PersonInfoController {
-
     @Autowired
     PersonService personService;
-
     @Autowired
     MedicalRecordService medicalRecordService;
 

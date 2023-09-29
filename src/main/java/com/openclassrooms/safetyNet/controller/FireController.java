@@ -17,13 +17,10 @@ import java.util.List;
 
 @RestController
 public class FireController {
-
     @Autowired
     StationService stationService;
-
     @Autowired
     PersonService personService;
-
     @Autowired
     MedicalRecordService medicalRecordService;
 

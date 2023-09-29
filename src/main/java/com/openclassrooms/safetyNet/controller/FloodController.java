@@ -17,13 +17,10 @@ import java.util.List;
 @RequestMapping("/flood")
 @RestController
 public class FloodController {
-
     @Autowired
     MedicalRecordService medicalRecordService;
-
     @Autowired
     PersonService personService;
-
     @Autowired
     StationService stationService;
 

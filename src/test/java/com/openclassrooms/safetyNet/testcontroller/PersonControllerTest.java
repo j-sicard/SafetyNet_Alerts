@@ -1,6 +1,5 @@
 package com.openclassrooms.safetyNet.testcontroller;
 
-import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.model.Person;
 import com.openclassrooms.safetyNet.service.PersonService;
 import org.junit.jupiter.api.Test;
@@ -44,7 +43,6 @@ public class PersonControllerTest {
 
         verify(personService).savePerson(any(Person.class));
     }
-
 
     @Test
     public void deletePersonTest() throws Exception {

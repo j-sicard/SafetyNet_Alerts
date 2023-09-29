@@ -16,7 +16,6 @@ import com.openclassrooms.safetyNet.service.StationService;
 public class PhoneAlertController {
 	@Autowired
 	PersonService personService;
-
 	@Autowired
 	StationService stationService;
 
