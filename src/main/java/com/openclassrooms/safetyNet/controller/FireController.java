@@ -31,9 +31,10 @@ public class FireController {
     @GetMapping(value = "/fire")
     public ResidentInfoMedicalRecordsStations getPersonInfoAndMedicalRecordsByFireStationAddresse(@RequestParam String address){
         try {
-            List<ResidentInfoMedicalRecordsDTO> ResidentInfoMedicalRecords  = medicalRecordService.getResidentMedicalRecords(personService.getPersonInfoFromAddress(address)) ;
+            List<ResidentInfoMedicalRecordsDTO> ResidentInfoMedicalRecords  =
+                    medicalRecordService.getResidentMedicalRecords(personService.getPersonInfoFromAddress(address)) ;
             String StationNumber = stationService.getStationByAddress(address);
-            LOGGER.info(new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber));
+            LOGGER.info(String.valueOf(new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber)));
             return new ResidentInfoMedicalRecordsStations(ResidentInfoMedicalRecords, StationNumber);
         }catch (ClassNotFoundException | IOException e){
             LOGGER.error("Impossible de lire le fichier data.json");

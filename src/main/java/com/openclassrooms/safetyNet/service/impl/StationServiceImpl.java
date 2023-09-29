@@ -76,7 +76,6 @@ public class StationServiceImpl implements StationService {
             // Réécrire le fichier JSON avec le nouvel objet ajouté
             objectMapper.writeValue(jsonFile, rootNode);
 
-            System.out.println("Nouvelle caserne ajoutée avec succès au fichier JSON !!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +106,6 @@ public class StationServiceImpl implements StationService {
             }
             // Réécrire le fichier JSON avec la caserne d'incendie mise à jour
             objectMapper.writeValue(jsonFile, rootNode);
-            System.out.println("Caserne d'incendie mise à jour avec succès dans le fichier JSON !!");
         return null;
     }
 
@@ -138,7 +136,6 @@ public class StationServiceImpl implements StationService {
 
         // Réécrire le fichier JSON sans la caserne d'incendie supprimée
         objectMapper.writeValue(jsonFile, rootNode);
-        System.out.println("Caserne d'incendie supprimée avec succès dans le fichier JSON !!");
         return null;
     }
 

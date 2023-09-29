@@ -41,7 +41,7 @@ public class FireStationController {
                     int nbAdult = personService.getNbAdult(ages);
                     int nbChildren = personService.getNbChildren(ages);
                     List<ResidentInfoDTO> residents = personService.getByAdresses(stationService.listStationAddresses(stationNumber));
-                    LOGGER.info(residents);
+                    LOGGER.info(String.valueOf(residents));
                     return new ResidentAndAgesDTO(residents, nbAdult, nbChildren);
                 } catch (ClassNotFoundException | IOException e) {
                     LOGGER.error("Impossible de lire le fichier data.json");
@@ -54,6 +54,7 @@ public class FireStationController {
             try {
                 stationService.saveStation(fireStation);
                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!"));
+                LOGGER.info("Body : " + fireStation);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!");
             }catch (ClassNotFoundException | IOException e){
                 LOGGER.error("Impossible de crée une nouvelle caserne dans le fichier data.json");
@@ -69,6 +70,7 @@ public class FireStationController {
             try {
                 stationService.updateStationByAddressStationNumber(address, station, fireStation);
                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!"));
+                LOGGER.info("Body :" + fireStation );
                 return  ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!");
             }catch (ClassNotFoundException | IOException e ){
                 LOGGER.error("Impossible de modifiée la nouvelle caserne dans le fichier data.json");
@@ -80,6 +82,7 @@ public class FireStationController {
         public ResponseEntity<String> deleteStation(@RequestParam String station, @RequestParam String address){
                 try {
                  stationService.deleteStation(station, address);
+                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!"));
                  return ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!");
              }catch (ClassNotFoundException | IOException e ){
                     LOGGER.error("Impossible de suprimée la nouvelle caserne dans le fichier data.json");

@@ -28,7 +28,7 @@ public class ChildrenAlertController {
     public ChildrenAdultDTO getChildFromAddress(@RequestParam String address){
         try {
             List<PersonInfoForChildAlertDTO> Persons = personService.getPersonInfoForChildAlert(personService.getPersonInfoFromAddress(address));
-            LOGGER.info(Persons);
+            LOGGER.info(String.valueOf(Persons));
             return new ChildrenAdultDTO(personService.getChildren(Persons) , personService.getAdult(Persons));
         }catch (ClassNotFoundException | IOException e){
             LOGGER.error("Impossible de lire le fichier data.json");

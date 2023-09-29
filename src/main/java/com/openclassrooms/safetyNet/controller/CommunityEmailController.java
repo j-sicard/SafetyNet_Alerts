@@ -23,7 +23,7 @@ public class CommunityEmailController {
     @GetMapping(value = "/communityEmail")
     public List<String> getCommunityEmails(@RequestParam String city){
         try {
-            LOGGER.info(personService.getPersonEmailFromCity(city));
+            LOGGER.info(String.valueOf(personService.getPersonEmailFromCity(city)));
             return personService.getPersonEmailFromCity(city);
         }catch (ClassNotFoundException | IOException e){
             LOGGER.error("Impossible de lire le fichier data.json");

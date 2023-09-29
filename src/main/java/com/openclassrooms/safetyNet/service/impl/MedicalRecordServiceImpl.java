@@ -86,9 +86,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return people;
     }
 
-    public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord){
-
-        try {
+    public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord) throws ClassNotFoundException, IOException{
             // Charger le fichier JSON existant
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
@@ -108,15 +106,10 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             // Réécrire le fichier JSON avec le nouvel objet ajouté
             objectMapper.writeValue(jsonFile, rootNode);
 
-            System.out.println("Nouveau dossier médical ajoutait avec succès au fichier JSON!!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 
-    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord){
-        try {
+    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord)throws ClassNotFoundException,IOException{
             // Charger le fichier JSON existant
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -142,10 +135,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                 }
             }
             objectMapper.writeValue(jsonFile, rootNode);
-            System.out.println("Dossier médical mis à jour avec succès dans le fichier JSON !!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 
@@ -175,7 +164,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         }
         // Réécrire le fichier JSON sans le Dossier médicale supprimé
         objectMapper.writeValue(jsonFile, rootNode);
-        System.out.println("Dossier médicale supprimé avec succès du fichier JSON !!");
         return null;
     }
 }
