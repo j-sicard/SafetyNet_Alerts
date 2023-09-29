@@ -17,7 +17,7 @@ public class MedicalRecordController {
     @Autowired
     MedicalRecordService medicalRecordService;
 
-    private static final Logger LOGGER =  LogManager.getLogger( ChildrenAlertController.class );
+    private static final Logger LOGGER =  LogManager.getLogger( MedicalRecordController.class );
 
     @PostMapping
     public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecord medicalRecord){

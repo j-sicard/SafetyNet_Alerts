@@ -26,7 +26,7 @@ public class FireController {
     @Autowired
     MedicalRecordService medicalRecordService;
 
-    private static final Logger LOGGER =  LogManager.getLogger( ChildrenAlertController.class );
+    private static final Logger LOGGER =  LogManager.getLogger( FireController.class );
 
     @GetMapping(value = "/fire")
     public ResidentInfoMedicalRecordsStations getPersonInfoAndMedicalRecordsByFireStationAddresse(@RequestParam String address){

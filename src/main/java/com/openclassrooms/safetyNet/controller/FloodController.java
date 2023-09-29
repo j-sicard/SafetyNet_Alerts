@@ -25,7 +25,7 @@ public class FloodController {
     @Autowired
     StationService stationService;
 
-    private static final Logger LOGGER =  LogManager.getLogger( ChildrenAlertController.class );
+    private static final Logger LOGGER =  LogManager.getLogger( FloodController.class );
 
    @GetMapping(value = "/station")
     public List<ResidentInfoMedicalRecordsDTO> getStations(@RequestParam(value="stations") List<String> stations){

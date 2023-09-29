@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ public class PersonInfoController {
     PersonService personService;
     @Autowired
     MedicalRecordService medicalRecordService;
+
+    private static final Logger LOGGER =  LogManager.getLogger( PersonInfoController.class );
 
     @GetMapping
     public List<PersonMedicalRecordDTO> getPersonsMedicalRecords(@RequestParam String firstName, @RequestParam String lastName)

@@ -203,9 +203,7 @@ public class PersonServiceImpl implements PersonService {
 		return adult;
 	}
 
-	public List<Person> savePerson(Person person){
-
-		try {
+	public List<Person> savePerson(Person person) throws ClassNotFoundException, IOException{
 			// Charger le fichier JSON existant
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
@@ -224,16 +222,10 @@ public class PersonServiceImpl implements PersonService {
 
 			// Réécrire le fichier JSON avec le nouvel objet ajouté
 			objectMapper.writeValue(jsonFile, rootNode);
-
-			System.out.println("Nouvelle personne ajoutée avec succès au fichier JSON !!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 
 	public List<Person>  updateperson(String firstName, String lastName, Person updatedperson)throws ClassNotFoundException, IOException{
-		try {
 			// Charger le fichier JSON existant
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -261,11 +253,6 @@ public class PersonServiceImpl implements PersonService {
 			}
 			// Réécrire le fichier JSON avec le profile de la personne mise à jour
 			objectMapper.writeValue(jsonFile, rootNode);
-
-			System.out.println("profile de la personne mise à jour avec succès dans le fichier JSON !!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 
