@@ -37,6 +37,5 @@ public class PersonInfoController {
             LOGGER.error("Impossible de lire le fichier data.json");
             return null;
         }
-
     }
 }
