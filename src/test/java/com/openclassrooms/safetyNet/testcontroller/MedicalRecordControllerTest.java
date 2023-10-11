@@ -42,20 +42,20 @@ public class MedicalRecordControllerTest {
 
     @MockBean
     private MedicalRecordService medicalRecordService;
-   /* @Test
+    @Test
     public void createMedicalRecordTest() throws Exception {
         List<MedicalRecord> medicalRecords = new ArrayList<>();
-
-        when(medicalRecordService.saveMedicalRecord(any(MedicalRecord.class))).thenReturn(medicalRecords);
+        when(medicalRecordService.saveMedicalRecord(any(MedicalRecord.class), anyString())).thenReturn(medicalRecords);
 
         mockMvc.perform(post("/medicalRecord")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"birthdate\" : \"10/11/1968\", \"medications\" : [\"Doliprane\"], \"allergies\" : [ \"cacahuete\" ] }")
-        ).andExpect(status().is2xxSuccessful());
+        ).andExpect(status().isCreated()); // Vérification du statut HTTP 201
 
-        verify(medicalRecordService).saveMedicalRecord(any(MedicalRecord.class));
+        verify(medicalRecordService).saveMedicalRecord(any(MedicalRecord.class), anyString());
     }
-*/
+
+
 
     @Test
     public void deletePersonTest() throws Exception {

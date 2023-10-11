@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,18 +32,19 @@ public class PersonControllerTest {
     @MockBean
     private PersonService personService;
 
-/*    @Test
+    @Test
     public void createPersonTest() throws Exception {
         List<Person> expectedPerson = new ArrayList<>();
-        when(personService.savePerson(any(Person.class))).thenReturn(expectedPerson);
+        when(personService.savePerson(any(Person.class), anyString())).thenReturn(expectedPerson);
 
         mockMvc.perform(post("/person")
                 .contentType(MediaType.APPLICATION_JSON) // Utilisez MediaType.APPLICATION_JSON
                 .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"address\" : \" 1 address test\", \"city\" : \"Culver\", \"zip\" :  \"97451\", \"phone\" : \"841-874-6512\", \"email\" : \"jaboyd@email.com\"  }")
-        ).andExpect(status().is2xxSuccessful());
+        ).andExpect(status().isCreated()); // Vérification du statut HTTP 201
 
-        verify(personService).savePerson(any(Person.class));
-    }*/
+        verify(personService).savePerson(any(Person.class), anyString());
+    }
+
 
     @Test
     public void deletePersonTest() throws Exception {

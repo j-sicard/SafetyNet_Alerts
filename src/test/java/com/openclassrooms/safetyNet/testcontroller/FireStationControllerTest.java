@@ -10,14 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,20 +44,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(status().is2xxSuccessful());
         }
 
-       @Test
+        @Test
         public void createStationTest() throws Exception {
             // Configuration du comportement du mock
-            List<FireStation> expectedFireStation = new ArrayList<>();
-            when(fireStationService.saveStation(any(FireStation.class))).thenReturn(expectedFireStation);
+            FireStation expectedFireStation = new FireStation("addressTest", "stationTest");
+            when(fireStationService.saveStation(any(FireStation.class), anyString())).thenReturn(Collections.singletonList(expectedFireStation));
 
             mockMvc.perform(post("/firestation")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{ \"address\" : \"addressTest\", \"station\" : \"stationTest\"}")
-            ).andExpect(status().is2xxSuccessful());// Vérification du status
-
-            // Vérification que la méthode saveFireStation du service a été appelée avec les bons arguments
-            verify(fireStationService).saveStation(any(FireStation.class));
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{ \"address\" : \"addressTest\", \"station\" : \"stationTest\"}")
+                    )
+                    .andExpect(status().isCreated()); // Vérification du statut HTTP 201
         }
+
+
+
 
         @Test
         public void updatePersonTest() throws Exception {
