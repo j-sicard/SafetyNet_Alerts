@@ -60,11 +60,8 @@ public class MedicalRecordServiceTest {
 
     @Test
     public void testSaveMedicalRecord() throws IOException, ClassNotFoundException {
-        // Créez un enregistrement médical
-        MedicalRecord medicalRecord = new MedicalRecord("FirstNameTest", "LastNameTest", "01/01/1980",
-                Collections.singletonList("medication"), Collections.singletonList("allergie"));
-
-        medicalRecordService.saveMedicalRecord(medicalRecord, jsonFilePath);
+        medicalRecordService.saveMedicalRecord(new MedicalRecord("FirstNameTest", "LastNameTest", "01/01/1980",
+                Collections.singletonList("medication"), Collections.singletonList("allergie")), jsonFilePath);
 
         // Rechargez le fichier JSON pour vérifier les données
         ObjectMapper objectMapper = new ObjectMapper();
@@ -75,14 +72,18 @@ public class MedicalRecordServiceTest {
         assertEquals("FirstNameTest", addedRecord.get("firstName").asText());
         assertEquals("LastNameTest", addedRecord.get("lastName").asText());
         assertEquals("01/01/1980", addedRecord.get("birthdate").asText());
+
+        medicalRecordService.deleteMedicalRecord("FirstNameTest", "LastNameTest", jsonFilePath);
     }
 
     @Test
     public void testUpDateMedicalRecord() throws IOException, ClassNotFoundException{
-        MedicalRecord medicalRecord = new MedicalRecord("FirstNameTest", "LastNameTest", "11/11/1980",
-                Collections.singletonList("upDateMedication"), Collections.singletonList("UpDateAllergie"));
+        medicalRecordService.saveMedicalRecord(new MedicalRecord("FirstNameTest", "LastNameTest", "01/01/1980",
+                Collections.singletonList("medication"), Collections.singletonList("allergie")), jsonFilePath);
 
-        medicalRecordService.updateMedicalRecord("FirstNameTest", "LastNameTest", medicalRecord, jsonFilePath);
+        medicalRecordService.updateMedicalRecord("FirstNameTest", "LastNameTest",
+                new MedicalRecord("FirstNameTest", "LastNameTest", "11/11/1980",
+                Collections.singletonList("upDateMedication"), Collections.singletonList("UpDateAllergie")), jsonFilePath);
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode updatedData = objectMapper.readTree(new File(jsonFilePath));
@@ -100,10 +101,15 @@ public class MedicalRecordServiceTest {
         ArrayNode allergies = (ArrayNode) addedRecord.get("allergies");
         assertEquals(1, allergies.size());
         assertEquals("UpDateAllergie", allergies.get(0).asText());
+
+        medicalRecordService.deleteMedicalRecord("FirstNameTest", "LastNameTest", jsonFilePath);
     }
 
     @Test
     public void testDeleteMedicalRecord() throws IOException, ClassNotFoundException {
+        medicalRecordService.saveMedicalRecord(new MedicalRecord("FirstNameTest", "LastNameTest", "01/01/1980",
+                Collections.singletonList("medication"), Collections.singletonList("allergie")), jsonFilePath);
+
         medicalRecordService.deleteMedicalRecord("FirstNameTest", "LastNameTest", jsonFilePath);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -114,7 +120,7 @@ public class MedicalRecordServiceTest {
         for (JsonNode record : medicalRecords) {
             String firstName = record.get("firstName").asText();
             String lastName = record.get("lastName").asText();
-            if (firstName.equals("FirstNameToDelete") && lastName.equals("LastNameToDelete")) {
+            if (firstName.equals("FirstNameTest") && lastName.equals("LastNameTest")) {
                 found = true;
                 break;
             }
