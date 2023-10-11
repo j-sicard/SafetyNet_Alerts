@@ -22,9 +22,9 @@ public interface MedicalRecordService {
 
     public List<ResidentInfoMedicalRecordsDTO> sortPeople(List<ResidentInfoMedicalRecordsDTO> people)throws ClassNotFoundException, JsonProcessingException, IOException;
 
-    public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord) throws ClassNotFoundException, IOException;
+    public List<MedicalRecord> saveMedicalRecord(MedicalRecord medicalRecord, String jsonFile) throws ClassNotFoundException, IOException;
 
-    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord)throws ClassNotFoundException, IOException;
+    public List<MedicalRecord>updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord, String filePath)throws ClassNotFoundException, IOException;
 
-    public List<MedicalRecord>deleteMedicalRecord(String firstName, String lastName)throws  ClassNotFoundException, IOException;
+    public List<MedicalRecord>deleteMedicalRecord(String firstName, String lastName, String filePath)throws  ClassNotFoundException, IOException;
 }

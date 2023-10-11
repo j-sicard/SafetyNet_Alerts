@@ -31,8 +31,8 @@ public class FloodController {
     public List<ResidentInfoMedicalRecordsDTO> getStations(@RequestParam(value="stations") List<String> stations){
        try {
            List<ResidentInfoMedicalRecordsDTO> residentInfoMedicalRecords = medicalRecordService.sortPeople(medicalRecordService.getResidentMedicalRecords(
-                   personService.sortPeopleByAddress(personService.getFromAddresses(
-                           stationService.getAddressStationbyStationNumber(stations)))));
+                   personService.getFromAddresses(
+                           stationService.getAddressStationbyStationNumber(stations))));
            LOGGER.info(String.valueOf(String.valueOf(residentInfoMedicalRecords)));
            return residentInfoMedicalRecords;
        }catch (ClassNotFoundException | IOException e){

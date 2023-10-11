@@ -19,10 +19,12 @@ public class MedicalRecordController {
 
     private static final Logger LOGGER =  LogManager.getLogger( MedicalRecordController.class );
 
+    String jsonFilePath = "src/main/resources/data.json";
+
     @PostMapping
     public ResponseEntity<String> createMedicalRecord(@RequestBody MedicalRecord medicalRecord){
         try {
-            medicalRecordService.saveMedicalRecord(medicalRecord);
+            medicalRecordService.saveMedicalRecord(medicalRecord, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Nouveau dossier médical créé avec succès!"));
             LOGGER.info("Body :" + medicalRecord);
             return ResponseEntity.status(HttpStatus.CREATED).body("Nouveau dossier médical créé avec succès!");
@@ -36,7 +38,7 @@ public class MedicalRecordController {
     public ResponseEntity<String> updateMedicalRecord(
             @RequestParam String firstName, @RequestParam String lastName ,@RequestBody MedicalRecord updatedMedicalRecord){
         try {
-            medicalRecordService.updateMedicalRecord(firstName, lastName, updatedMedicalRecord);
+            medicalRecordService.updateMedicalRecord(firstName, lastName, updatedMedicalRecord, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("dossier médical mise à jour avec succès!"));
             LOGGER.info("body :" + updatedMedicalRecord);
             return  ResponseEntity.status(HttpStatus.CREATED).body("dossier médical mise à jour avec succès!");
@@ -49,7 +51,7 @@ public class MedicalRecordController {
     @DeleteMapping
     public ResponseEntity<String> deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName){
         try {
-            medicalRecordService.deleteMedicalRecord(firstName, lastName);
+            medicalRecordService.deleteMedicalRecord(firstName, lastName, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("le dossier médical a été suprimée avec succès!"));
             return ResponseEntity.status(HttpStatus.CREATED).body("le dossier médical a été suprimée avec succès!");
         }catch (ClassNotFoundException | IOException e){

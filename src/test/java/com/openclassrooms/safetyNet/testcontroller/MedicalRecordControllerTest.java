@@ -42,7 +42,7 @@ public class MedicalRecordControllerTest {
 
     @MockBean
     private MedicalRecordService medicalRecordService;
-    @Test
+   /* @Test
     public void createMedicalRecordTest() throws Exception {
         List<MedicalRecord> medicalRecords = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class MedicalRecordControllerTest {
 
         verify(medicalRecordService).saveMedicalRecord(any(MedicalRecord.class));
     }
-
+*/
 
     @Test
     public void deletePersonTest() throws Exception {

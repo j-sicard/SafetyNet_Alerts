@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.openclassrooms.safetyNet.dao.MedicalRecordDao;
 import com.openclassrooms.safetyNet.dao.impl.MedicalRecordDaoImpl;
 import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
-import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;
 import com.openclassrooms.safetyNet.model.MedicalRecord;
 import com.openclassrooms.safetyNet.utils.DateUtils;
 
@@ -125,18 +124,6 @@ public class PersonServiceImpl implements PersonService {
 		return personsToFind;
 	}
 
-	/*public List<Person> getPersonInfoFromAddress(String address)
-			throws ClassNotFoundException, IOException, JsonProcessingException{
-		List<ResidentInfoMedicalRecordsDTO> residents = new ArrayList<>();
-
-		List<Person> personsToFind = new ArrayList<Person>();
-		List<Person> persons = personDao.list();
-		for(Person person: persons) {
-			if(person.getAddress().toUpperCase().equals(address.toUpperCase())) personsToFind.add(person);
-		}
-		return personsToFind;
-	}*/
-
 	public List<Person> getPersonInfoFromAddress(String address)
 			throws ClassNotFoundException, IOException, JsonProcessingException {
 		return personDao.list().stream()
@@ -156,17 +143,6 @@ public class PersonServiceImpl implements PersonService {
 			}
 		}
 		return persons;
-	}
-
-	public List<Person> sortPeopleByAddress(List<Person> people) throws
-			ClassNotFoundException, JsonProcessingException, IOException {
-		Comparator<Person> addressComparator = Comparator.comparing(Person::getAddress);
-
-		List<Person> sortedPeople = people.stream()
-				.sorted(addressComparator)
-				.collect(Collectors.toList());
-
-		return sortedPeople;
 	}
 
 	public List<PersonInfoForChildAlertDTO>getPersonInfoForChildAlert(List<Person> persons)
