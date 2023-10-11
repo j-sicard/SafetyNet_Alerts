@@ -54,20 +54,28 @@ public class StationServiceImpl implements StationService {
         return stationAddresses;
     }
 
-    public List<FireStation> saveStation(FireStation fireStation){
+    public  List<FireStation> saveStation(FireStation fireStation, String jsonFilePath) throws IOException {
 
-        try {
             // Charger le fichier JSON existant
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
 
-            File jsonFile = new File("src/main/resources/data.json");
-            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+            // Charger le fichier JSON depuis le chemin spécifié
+            File jsonFile = new File(jsonFilePath);
+            ObjectNode rootNode;
 
-            // Récupérer le tableau "persons"
+            if (jsonFile.exists()) {
+                rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+            } else {
+                // Si le fichier n'existe pas encore, créez un nouvel objet JSON
+                rootNode = objectMapper.createObjectNode();
+                rootNode.putArray("firestations");
+            }
+
+            // Récupérer le tableau "firestations"
             ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
 
-            // Convertir l'objet Person en objet JSON
+            // Convertir l'objet FireStation en objet JSON
             ObjectNode newStationNode = objectMapper.valueToTree(fireStation);
 
             // Ajouter le nouvel objet "fireStation" au tableau
@@ -75,25 +83,25 @@ public class StationServiceImpl implements StationService {
 
             // Réécrire le fichier JSON avec le nouvel objet ajouté
             objectMapper.writeValue(jsonFile, rootNode);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+      return null;
     }
 
-    public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation updatedFireStation) throws ClassNotFoundException, IOException {
 
+
+
+    public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation updatedFireStation, String jsonFilePath) throws ClassNotFoundException, IOException {
+        try {
             // Charger le fichier JSON existant
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-            File jsonFile = new File("src/main/resources/data.json");
+            File jsonFile = new File(jsonFilePath);
             ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
             // Récupérer le tableau "firestations"
             ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
-            // Parcourir le tableau "firestations" pour trouver la caserne à mettre à jour
 
+            // Parcourir le tableau "firestations" pour trouver la caserne à mettre à jour
             for (JsonNode stationNode : stationsArray) {
                 String stationAddress = stationNode.get("address").asText();
                 String stationNumber = stationNode.get("station").asText();
@@ -104,39 +112,48 @@ public class StationServiceImpl implements StationService {
                     break; // Sortez de la boucle une fois que la mise à jour est effectuée
                 }
             }
+
             // Réécrire le fichier JSON avec la caserne d'incendie mise à jour
             objectMapper.writeValue(jsonFile, rootNode);
-        return null;
-    }
-
-    public List<FireStation> deleteStation(String station, String address) throws IOException, ClassNotFoundException {
-        // Charger le fichier JSON existant
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        File jsonFile = new File("src/main/resources/data.json");
-        ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
-
-        // Récupérer le tableau "firestations"
-        ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
-
-        // Utiliser un itérateur pour parcourir le tableau "firestations"
-        Iterator<JsonNode> stationIterator = stationsArray.elements();
-        while (stationIterator.hasNext()) {
-            JsonNode stationNode = stationIterator.next();
-            String stationAddress = stationNode.get("address").asText();
-            String stationNumber = stationNode.get("station").asText();
-
-            if (stationAddress.equals(address) && stationNumber.equals(station)) {
-                // Supprimer la caserne d'incendie si elle correspond aux critères
-                stationIterator.remove();
-                break; // Sortez de la boucle une fois que la suppression est effectuée
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Réécrire le fichier JSON sans la caserne d'incendie supprimée
-        objectMapper.writeValue(jsonFile, rootNode);
         return null;
     }
+
+
+    public List<FireStation> deleteStation(String station, String address, String jsonFilePath) throws IOException, ClassNotFoundException {
+        try {
+            // Charger le fichier JSON existant
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            File jsonFile = new File(jsonFilePath);
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+
+            // Récupérer le tableau "firestations"
+            ArrayNode stationsArray = (ArrayNode) rootNode.get("firestations");
+
+            // Utiliser un itérateur pour parcourir le tableau "firestations"
+            Iterator<JsonNode> stationIterator = stationsArray.elements();
+            while (stationIterator.hasNext()) {
+                JsonNode stationNode = stationIterator.next();
+                String stationAddress = stationNode.get("address").asText();
+                String stationNumber = stationNode.get("station").asText();
+
+                if (stationAddress.equals(address) && stationNumber.equals(station)) {
+                    // Supprimer la caserne d'incendie si elle correspond aux critères
+                    stationIterator.remove();
+                    break; // Sortez de la boucle une fois que la suppression est effectuée
+                }
+            }
+            // Réécrire le fichier JSON sans la caserne d'incendie supprimée
+            objectMapper.writeValue(jsonFile, rootNode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

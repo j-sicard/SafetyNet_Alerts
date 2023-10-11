@@ -179,68 +179,69 @@ public class PersonServiceImpl implements PersonService {
 		return adult;
 	}
 
-	public List<Person> savePerson(Person person) throws ClassNotFoundException, IOException{
-			// Charger le fichier JSON existant
-			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
+	public List<Person> savePerson(Person person, String jsonFile) throws ClassNotFoundException, IOException {
+		// Charger le fichier JSON existant
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Pour une meilleure lisibilité
 
-			File jsonFile = new File("src/main/resources/data.json");
-			ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+		ObjectNode rootNode = (ObjectNode) objectMapper.readTree(new File(jsonFile)); // Utilisez un objet File
 
-			// Récupérer le tableau "persons"
-			ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
+		// Récupérer le tableau "persons"
+		ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
 
-			// Convertir l'objet Person en objet JSON
-			ObjectNode newPersonNode = objectMapper.valueToTree(person);
+		// Convertir l'objet Person en objet JSON
+		ObjectNode newPersonNode = objectMapper.valueToTree(person);
 
-			// Ajouter le nouvel objet "person" au tableau
-			personsArray.add(newPersonNode);
+		// Ajouter le nouvel objet "person" au tableau
+		personsArray.add(newPersonNode);
 
-			// Réécrire le fichier JSON avec le nouvel objet ajouté
-			objectMapper.writeValue(jsonFile, rootNode);
+		// Réécrire le fichier JSON avec le nouvel objet ajouté
+		objectMapper.writeValue(new File(jsonFile), rootNode); // Utilisez un objet File
+
 		return null;
 	}
 
-	public List<Person>  updateperson(String firstName, String lastName, Person updatedperson)throws ClassNotFoundException, IOException{
-			// Charger le fichier JSON existant
-			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-			File jsonFile = new File("src/main/resources/data.json");
-			ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
-
-			// Récupérer le tableau "persons"
-			ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
-
-			// Parcourir le tableau "personsArray" pour trouver la caserne à mettre à jour
-			for (JsonNode stationNode : personsArray) {
-				String personFirstName = stationNode.get("firstName").asText();
-				String personLastName = stationNode.get("lastName").asText();
-
-				if (personFirstName.equals(firstName) && personLastName.equals(lastName)) {
-					// Mettre à jour du profile de la personne si elle correspond aux critères
-					((ObjectNode) stationNode).put("address", updatedperson.getAddress());
-					((ObjectNode) stationNode).put("city", updatedperson.getCity());
-					((ObjectNode) stationNode).put("zip", updatedperson.getZip());
-					((ObjectNode) stationNode).put("phone", updatedperson.getPhone());
-					((ObjectNode) stationNode).put("email", updatedperson.getEmail());
-					break;
-				}
-			}
-			// Réécrire le fichier JSON avec le profile de la personne mise à jour
-			objectMapper.writeValue(jsonFile, rootNode);
-		return null;
-	}
-
-	public List<Person> deletePerson(String firstName,String lastName)throws ClassNotFoundException, IOException{
+	public List<Person> updateperson(String firstName, String lastName, Person updatedPerson, String jsonFile) throws ClassNotFoundException, IOException {
 		// Charger le fichier JSON existant
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-		File jsonFile = new File("src/main/resources/data.json");
-		ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFile);
+		File jsonFileObject = new File(jsonFile); // Créez un objet File à partir du chemin du fichier JSON
+		ObjectNode rootNode = (ObjectNode) objectMapper.readTree(jsonFileObject);
 
-		// Récupérer le tableau "Persons"
+		// Récupérer le tableau "persons"
+		ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
+
+		// Parcourir le tableau "personsArray" pour trouver la personne à mettre à jour
+		for (JsonNode personNode : personsArray) {
+			String personFirstName = personNode.get("firstName").asText();
+			String personLastName = personNode.get("lastName").asText();
+
+			if (personFirstName.equals(firstName) && personLastName.equals(lastName)) {
+				// Mettre à jour le profil de la personne si elle correspond aux critères
+				((ObjectNode) personNode).put("address", updatedPerson.getAddress());
+				((ObjectNode) personNode).put("city", updatedPerson.getCity());
+				((ObjectNode) personNode).put("zip", updatedPerson.getZip());
+				((ObjectNode) personNode).put("phone", updatedPerson.getPhone());
+				((ObjectNode) personNode).put("email", updatedPerson.getEmail());
+				break;
+			}
+		}
+
+		// Réécrire le fichier JSON avec le profil de la personne mis à jour
+		objectMapper.writeValue(jsonFileObject, rootNode);
+
+		return null;
+	}
+
+	public List<Person> deletePerson(String firstName, String lastName, String jsonFile) throws ClassNotFoundException, IOException {
+		// Charger le fichier JSON existant
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+		ObjectNode rootNode = (ObjectNode) objectMapper.readTree(new File(jsonFile)); // Convertissez le chemin du fichier en un objet File
+
+		// Récupérer le tableau "persons"
 		ArrayNode personsArray = (ArrayNode) rootNode.get("persons");
 
 		// Utiliser un itérateur pour parcourir le tableau "persons"
@@ -251,14 +252,16 @@ public class PersonServiceImpl implements PersonService {
 			String personLastName = personNode.get("lastName").asText();
 
 			if (personFirstName.equals(firstName) && personLastName.equals(lastName)) {
-				// Supprimer la person si elle correspond aux critères
+				// Supprimer la personne si elle correspond aux critères
 				personIterator.remove();
 				break;
 			}
 		}
-		// Réécrire le fichier JSON sans le Dossier médicale supprimé
-		objectMapper.writeValue(jsonFile, rootNode);
-		System.out.println("Le profile de la personne a été supprimé avec succès du fichier JSON !!");
+
+		// Réécrire le fichier JSON sans le profil de la personne supprimée
+		objectMapper.writeValue(new File(jsonFile), rootNode);
+		System.out.println("Le profil de la personne a été supprimé avec succès du fichier JSON !!");
+
 		return null;
 	}
 }

@@ -18,10 +18,10 @@ public interface StationService {
 	public List<String> getAddressStationbyStationNumber(List<String> stationNumbers)
 			throws ClassNotFoundException, JsonProcessingException, IOException;
 
-	public List<FireStation> saveStation(FireStation fireStation)throws ClassNotFoundException,  IOException;
+	public List<FireStation> saveStation(FireStation fireStation, String jsonFile)throws ClassNotFoundException,  IOException;
 
-	public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation fireStation)throws ClassNotFoundException, IOException;
+	public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation fireStation, String jsonFile)throws ClassNotFoundException, IOException;
 
-	public List<FireStation> deleteStation( String stationNumber, String addressStation) throws IOException, ClassNotFoundException;
+	public List<FireStation> deleteStation( String stationNumber, String addressStation, String jsonFile) throws IOException, ClassNotFoundException;
 
 }

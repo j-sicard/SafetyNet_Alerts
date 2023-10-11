@@ -37,9 +37,9 @@ public interface PersonService {
 
 	public List<PersonInfoForChildAlertDTO> getAdult(List<PersonInfoForChildAlertDTO> persons);
 
-	public List<Person> savePerson(Person person)throws ClassNotFoundException, IOException;
+	public List<Person> savePerson(Person person, String filepath)throws ClassNotFoundException, IOException;
 
-	public List<Person>  updateperson(String firstName, String lastName, Person person)throws ClassNotFoundException, IOException;
+	public List<Person>  updateperson(String firstName, String lastName, Person person, String filepath)throws ClassNotFoundException, IOException;
 
-	public List<Person> deletePerson(String firstName,String lastName)throws ClassNotFoundException, IOException;
+	public List<Person> deletePerson(String firstName,String lastName, String filepath)throws ClassNotFoundException, IOException;
 }

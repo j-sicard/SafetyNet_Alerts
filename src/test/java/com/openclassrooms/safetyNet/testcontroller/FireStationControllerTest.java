@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(status().is2xxSuccessful());
         }
 
-        @Test
+       @Test
         public void createStationTest() throws Exception {
             // Configuration du comportement du mock
             List<FireStation> expectedFireStation = new ArrayList<>();

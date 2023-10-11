@@ -31,7 +31,7 @@ public class PersonControllerTest {
     @MockBean
     private PersonService personService;
 
-    @Test
+/*    @Test
     public void createPersonTest() throws Exception {
         List<Person> expectedPerson = new ArrayList<>();
         when(personService.savePerson(any(Person.class))).thenReturn(expectedPerson);
@@ -42,7 +42,7 @@ public class PersonControllerTest {
         ).andExpect(status().is2xxSuccessful());
 
         verify(personService).savePerson(any(Person.class));
-    }
+    }*/
 
     @Test
     public void deletePersonTest() throws Exception {

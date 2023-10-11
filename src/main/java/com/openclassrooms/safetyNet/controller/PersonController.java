@@ -19,12 +19,14 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    String jsonFilePath = "./src/main/resources/data.json";
+
     private static final Logger LOGGER =  LogManager.getLogger( PersonController.class );
 
     @PostMapping
     public ResponseEntity<String> createPerson(@RequestBody Person person){
         try {
-            personService.savePerson(person);
+            personService.savePerson(person, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body( "Nouvelle personne créée avec succès!"));
             LOGGER.info(person);
             return ResponseEntity.status(HttpStatus.CREATED).body( "Nouvelle personne créée avec succès!");
@@ -37,7 +39,7 @@ public class PersonController {
     @PutMapping
     public ResponseEntity<String> updatePerson(@RequestParam String firstName, @RequestParam String lastName ,@RequestBody Person person){
         try {
-            personService.updateperson(firstName, lastName, person);
+            personService.updateperson(firstName, lastName, person, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("profile de la personne mise à jour avec succès!"));
             LOGGER.info(person);
             return  ResponseEntity.status(HttpStatus.CREATED).body("profile de la personne mise à jour avec succès!");
@@ -50,7 +52,7 @@ public class PersonController {
     @DeleteMapping
     public ResponseEntity<String> deletePerson(@RequestParam String firstName, @RequestParam String lastName){
         try {
-            personService.deletePerson(firstName, lastName);
+            personService.deletePerson(firstName, lastName, jsonFilePath);
             LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Le profile de la personne a été suprimée avec succès!"));
             return ResponseEntity.status(HttpStatus.CREATED).body("Le profile de la personne a été suprimée avec succès!");
         }catch(ClassNotFoundException | IOException e){

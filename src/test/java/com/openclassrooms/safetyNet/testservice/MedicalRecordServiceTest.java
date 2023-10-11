@@ -127,11 +127,4 @@ public class MedicalRecordServiceTest {
         }
         assertFalse(found, "L'enregistrement médical supprimé ne doit pas être présent.");
     }
-
-
-
-
-
-
-
 }

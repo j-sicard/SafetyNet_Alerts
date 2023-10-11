@@ -33,6 +33,8 @@ public class FireStationController {
 
         private static final Logger LOGGER =  LogManager.getLogger( FireStationController.class );
 
+        String jsonFilePath = "src/main/resources/data.json";
+
         @GetMapping
         public ResidentAndAgesDTO getResidentsWithNumberOfAdultsAndChildrenByStation(@RequestParam String stationNumber){
                 try {
@@ -52,7 +54,7 @@ public class FireStationController {
       @PostMapping
         public ResponseEntity<String> createStation(@RequestBody FireStation fireStation) {
             try {
-                stationService.saveStation(fireStation);
+                stationService.saveStation(fireStation, jsonFilePath);
                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!"));
                 LOGGER.info("Body : " + fireStation);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Nouvelle caserne créée avec succès!");
@@ -68,7 +70,7 @@ public class FireStationController {
         public ResponseEntity<String> updateStation(
                 @RequestParam String address, @RequestParam String station ,@RequestBody FireStation fireStation){
             try {
-                stationService.updateStationByAddressStationNumber(address, station, fireStation);
+                stationService.updateStationByAddressStationNumber(address, station, fireStation, jsonFilePath);
                 LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!"));
                 LOGGER.info("Body :" + fireStation );
                 return  ResponseEntity.status(HttpStatus.CREATED).body("Caserne mise à jour avec succès!");
@@ -81,7 +83,7 @@ public class FireStationController {
         @DeleteMapping
         public ResponseEntity<String> deleteStation(@RequestParam String station, @RequestParam String address){
                 try {
-                 stationService.deleteStation(station, address);
+                 stationService.deleteStation(station, address, jsonFilePath);
                  LOGGER.info(ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!"));
                  return ResponseEntity.status(HttpStatus.CREATED).body("Caserne suprimée avec succès!");
              }catch (ClassNotFoundException | IOException e ){
