@@ -3,7 +3,6 @@ package com.openclassrooms.safetyNet.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,14 +40,6 @@ public class PersonServiceImpl implements PersonService {
 		List<String> phoneNumbers = persons.stream().map(o -> o.getPhone()).collect(Collectors.toList());
 		return phoneNumbers;
 	}
-
-	/*public List<String> getPersonEmailFromCity(String city)
-			throws ClassNotFoundException, JsonProcessingException, IOException{
-		List<Person> persons = personDao.list().stream().filter(o -> (city.contains(o.getCity())))
-				.toList();
-		List<String> emails = persons.stream().map(o -> o.getEmail()).collect(Collectors.toList());
-		return emails;
-	}*/
 
 	public List<String> getPersonEmailFromCity(String city)
 			throws ClassNotFoundException, JsonProcessingException, IOException {

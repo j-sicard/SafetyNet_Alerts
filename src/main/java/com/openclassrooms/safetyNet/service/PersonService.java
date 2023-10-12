@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.openclassrooms.safetyNet.dto.PersonInfoForChildAlertDTO;
 import com.openclassrooms.safetyNet.dto.ResidentInfoDTO;
-import com.openclassrooms.safetyNet.model.FireStation;
 import com.openclassrooms.safetyNet.model.Person;
 
 public interface PersonService {

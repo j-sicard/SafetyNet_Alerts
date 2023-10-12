@@ -86,9 +86,6 @@ public class StationServiceImpl implements StationService {
       return null;
     }
 
-
-
-
     public List<FireStation> updateStationByAddressStationNumber(String address, String station, FireStation updatedFireStation, String jsonFilePath) throws ClassNotFoundException, IOException {
         try {
             // Charger le fichier JSON existant
@@ -120,7 +117,6 @@ public class StationServiceImpl implements StationService {
         }
         return null;
     }
-
 
     public List<FireStation> deleteStation(String station, String address, String jsonFilePath) throws IOException, ClassNotFoundException {
         try {
@@ -154,6 +150,4 @@ public class StationServiceImpl implements StationService {
         }
         return null;
     }
-
-
 }

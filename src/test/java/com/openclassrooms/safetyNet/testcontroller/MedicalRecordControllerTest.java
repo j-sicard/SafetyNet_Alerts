@@ -1,6 +1,5 @@
 package com.openclassrooms.safetyNet.testcontroller;
 
-import com.openclassrooms.safetyNet.controller.MedicalRecordController;
 import com.openclassrooms.safetyNet.model.MedicalRecord;
 import com.openclassrooms.safetyNet.service.MedicalRecordService;
 import org.junit.jupiter.api.Test;
@@ -11,10 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -28,17 +25,6 @@ public class MedicalRecordControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-  /*  @Test
-    public void createMedicalRecordTest() throws Exception {
-
-
-        mockMvc.perform(post("/medicalRecord")
-                .contentType(MediaType.APPLICATION_JSON) // Utilisez MediaType.APPLICATION_JSON
-                .content("{ \"firstName\" : \"fabien\", \"lastName\" : \"Bartez\", \"birthdate\" : \"10/11/1968\", \"medications\" : [\"Doliprane\"], \"allergies\" : [ \"cacahuete\" ] }")
-        ).andExpect(status().is2xxSuccessful());
-    }*/
-
 
     @MockBean
     private MedicalRecordService medicalRecordService;
@@ -54,8 +40,6 @@ public class MedicalRecordControllerTest {
 
         verify(medicalRecordService).saveMedicalRecord(any(MedicalRecord.class), anyString());
     }
-
-
 
     @Test
     public void deletePersonTest() throws Exception {
@@ -76,5 +60,4 @@ public class MedicalRecordControllerTest {
                         .content("{ \"firstName\" : \"Fabien\", \"lastName\" : \"Barteze\", \"birthdate\" : \"12/10/1968\", \"medications\" : [\"Tramadol\"], \"allergies\" : [ \"shellfish\" ] }"))
                 .andExpect(status().is2xxSuccessful());
     }
-
 }

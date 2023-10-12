@@ -1,9 +1,7 @@
 package com.openclassrooms.safetyNet.service;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.openclassrooms.safetyNet.dto.ResidentInfoMedicalRecordsDTO;

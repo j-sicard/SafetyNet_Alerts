@@ -106,7 +106,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return null;
     }
 
-
     public List<MedicalRecord> updateMedicalRecord(String firstName, String lastName, MedicalRecord updatedMedicalRecord, String jsonFile) throws IOException, ClassNotFoundException{
         // Charger le fichier JSON existant
         ObjectMapper objectMapper = new ObjectMapper();
@@ -169,5 +168,4 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         objectMapper.writeValue(jsonFileObj, rootNode);
         return null;
     }
-
 }
